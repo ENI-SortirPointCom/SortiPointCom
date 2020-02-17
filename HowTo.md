@@ -3,7 +3,11 @@ demarer symfony 5
 ```bash
 php -S 127.0.0.1:8080 -t public
 ```
-  
+configurer git pour le proxy :
+```bash
+git config --global http.proxy http://user:password@proxy-cdb.ad.campus-eni.fr:8080
+```
+
 pour creer une Entity :
 ```
 php bin/console make:entity
