@@ -127,4 +127,4 @@ easy_admin:
         - App\Entity\FoodStock
         - App\Entity\FoodType
 ```
- [voir la doc](https://symfony.com/doc/master/bundles/EasyAdminBundle/book/installation.html)
+ [voir la doc](https://symfony.com/doc/master/bundles/EasyAdminBundle/book/installation.html)  
