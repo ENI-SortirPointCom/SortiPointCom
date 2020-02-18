@@ -1,0 +1,16 @@
+easy_admin:
+  site_name: 'Sortir Point Com'
+  entities:
+  # List the entity class name you want to manage
+    Etat:
+      class: App\Entity\Etat
+    Lieu:
+      class: App\Entity\Lieu
+    Site:
+      class: App\Entity\Site
+    Sortie:
+      class: App\Entity\Sortie
+    Utilisateur:
+      class: App\Entity\Utilisateur
+    Ville:
+      class: App\Entity\Ville
