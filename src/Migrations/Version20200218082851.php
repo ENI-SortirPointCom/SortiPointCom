@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Doctrine\Migrations\Exception\MigrationException;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
@@ -36,6 +38,8 @@ final class Version20200218082851 extends AbstractMigration
         $this->addSql('ALTER TABLE sortie_utilisateur ADD CONSTRAINT FK_2C57C50FCC72D953 FOREIGN KEY (sortie_id) REFERENCES sortie (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE sortie_utilisateur ADD CONSTRAINT FK_2C57C50FFB88E14F FOREIGN KEY (utilisateur_id) REFERENCES utilisateur (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE utilisateur ADD CONSTRAINT FK_1D1C63B3F6BD1646 FOREIGN KEY (site_id) REFERENCES site (id)');
+
+
     }
 
     public function down(Schema $schema) : void
@@ -58,4 +62,6 @@ final class Version20200218082851 extends AbstractMigration
         $this->addSql('DROP TABLE utilisateur');
         $this->addSql('DROP TABLE ville');
     }
+
+
 }

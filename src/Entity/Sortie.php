@@ -54,17 +54,11 @@ class Sortie
      */
     private $etat;
 
-//    /**
-//     * @ORM\Column(type="string", length=255)
-//     */
-//    private $organisateur;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="organisateur")
      */
     private $organisateur;
-
-
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sorties")
@@ -160,12 +154,12 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?bool
+    public function getEtat(): ?integer
     {
         return $this->etat;
     }
 
-    public function setEtat(bool $etat): self
+    public function setEtat(integer $etat): self
     {
         $this->etat = $etat;
 
@@ -177,7 +171,7 @@ class Sortie
         return $this->organisateur;
     }
 
-    public function setOrganisateur(string $organisateur): self
+    public function setOrganisateur(integer $organisateur): self
     {
         $this->organisateur = $organisateur;
 
@@ -195,7 +189,6 @@ class Sortie
 
         return $this;
     }
-
 
 
     public function getLieu(): ?Lieu
