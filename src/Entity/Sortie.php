@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
  */
@@ -54,12 +55,6 @@ class Sortie
      */
     private $etat;
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="organisateur")
-     */
-    private $organisateur;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
@@ -67,14 +62,30 @@ class Sortie
     private $lieu;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Utilisateur", inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="participe")
+     */
+    private $user;
+
+//    /**
+//     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="sorties")
+//     */
+//    private $users;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="sorties")
      */
     private $participant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="organise")
+     */
+    private $organisateur;
 
 
     public function __construct()
     {
         $this->participant = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -154,42 +165,17 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?integer
+    public function getEtat(): ?bool
     {
         return $this->etat;
     }
 
-    public function setEtat(integer $etat): self
+    public function setEtat(bool $etat): self
     {
         $this->etat = $etat;
 
         return $this;
     }
-
-    public function getOrganisateur(): ?string
-    {
-        return $this->organisateur;
-    }
-
-    public function setOrganisateur(integer $organisateur): self
-    {
-        $this->organisateur = $organisateur;
-
-        return $this;
-    }
-
-    public function getOrganise(): ?Utilisateur
-    {
-        return $this->organise;
-    }
-
-    public function setOrganise(?Utilisateur $organise): self
-    {
-        $this->organise = $organise;
-
-        return $this;
-    }
-
 
     public function getLieu(): ?Lieu
     {
@@ -203,15 +189,55 @@ class Sortie
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     /**
-     * @return Collection|Utilisateur[]
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addSorty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeSorty($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
      */
     public function getParticipant(): Collection
     {
         return $this->participant;
     }
 
-    public function addParticipant(Utilisateur $participant): self
+    public function addParticipant(User $participant): self
     {
         if (!$this->participant->contains($participant)) {
             $this->participant[] = $participant;
@@ -220,11 +246,23 @@ class Sortie
         return $this;
     }
 
-    public function removeParticipant(Utilisateur $participant): self
+    public function removeParticipant(User $participant): self
     {
         if ($this->participant->contains($participant)) {
             $this->participant->removeElement($participant);
         }
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?User
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?User $organisateur): self
+    {
+        $this->organisateur = $organisateur;
 
         return $this;
     }

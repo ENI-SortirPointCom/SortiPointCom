@@ -23,14 +23,15 @@ class Site
      */
     private $nom;
 
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Utilisateur", mappedBy="site")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="site")
      */
-    private $utilisateurs;
+    private $users;
 
     public function __construct()
     {
-        $this->utilisateurs = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,30 +52,30 @@ class Site
     }
 
     /**
-     * @return Collection|Utilisateur[]
+     * @return Collection|User[]
      */
-    public function getUtilisateurs(): Collection
+    public function getUsers(): Collection
     {
-        return $this->utilisateurs;
+        return $this->users;
     }
 
-    public function addUtilisateur(Utilisateur $utilisateur): self
+    public function addUser(User $user): self
     {
-        if (!$this->utilisateurs->contains($utilisateur)) {
-            $this->utilisateurs[] = $utilisateur;
-            $utilisateur->setSite($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setSite($this);
         }
 
         return $this;
     }
 
-    public function removeUtilisateur(Utilisateur $utilisateur): self
+    public function removeUser(User $user): self
     {
-        if ($this->utilisateurs->contains($utilisateur)) {
-            $this->utilisateurs->removeElement($utilisateur);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
             // set the owning side to null (unless already changed)
-            if ($utilisateur->getSite() === $this) {
-                $utilisateur->setSite(null);
+            if ($user->getSite() === $this) {
+                $user->setSite(null);
             }
         }
 

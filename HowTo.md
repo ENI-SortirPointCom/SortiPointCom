@@ -1,5 +1,11 @@
 # PROJET SORTIR.COM
+## doctrine 
+inversed by design qui a la cle etrangere
 
+demarer symfony 5
+```bash
+php -S 127.0.0.1:8080 -t public
+```
 configurer git pour le proxy :
 ```bash
 git config --global http.proxy http://user:password@proxy-cdb.ad.campus-eni.fr:8080
@@ -13,15 +19,11 @@ php bin/console make:entity
 utliser composer pour demarer un projet .
 dans le rep du projet : 
 ``` php 
-    composer create-project symfony/skeleton nom_du_projet
+    composer create-project symfony/skeleton blog
 ```
-une fois creer on lance le server symfony 4 par : 
+une fois creer on lance le server par : 
 ```
 symfony server:start
-```
-demarer symfony 5
-```bash
-php -S 127.0.0.1:8080 -t public
 ```
 pour regenerer les entity
 ```
@@ -33,11 +35,11 @@ on peur creer des entity column par annotation comme dans  Spring
 voir doc : [doctrine](https://www.doctrine-project.org/projects/doctrine-annotations/en/1.6/index.html)
 creer la base
 ```
-php bin/console doctrine:database:create
+phpbin/console doctrine:database:create
 ```
 creer les entity
 ```
-php bin/console make:entity
+phpbin/console make:entity
 ```
 creer des entity a partir d'une base de donnee
 ```
