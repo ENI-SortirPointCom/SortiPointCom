@@ -35,7 +35,7 @@ on peur creer des entity column par annotation comme dans  Spring
 voir doc : [doctrine](https://www.doctrine-project.org/projects/doctrine-annotations/en/1.6/index.html)
 creer la base
 ```
-phpbin/console doctrine:database:create
+php bin/console doctrine:database:create
 ```
 creer les entity
 ```

@@ -165,12 +165,12 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?bool
+    public function getEtat(): ?string
     {
         return $this->etat;
     }
 
-    public function setEtat(bool $etat): self
+    public function setEtat(string $etat): self
     {
         $this->etat = $etat;
 
