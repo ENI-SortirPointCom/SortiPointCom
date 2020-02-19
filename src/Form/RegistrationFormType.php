@@ -20,9 +20,12 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-
+                'label' => 'Mail',
+                'attr' => [
+                    'placeholder' => 'jean.jean@eni.fr']
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Accepter les termes d\'utilisation',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -31,6 +34,9 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
+                'label' => 'Mot de Passe',
+                'attr' => [
+                    'placeholder' => 'Votre mot de passe'],
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -47,12 +53,16 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('nom', TextType::class, [
-                'empty_data' => 'Jean'
+                'label' => 'Nom',
+                'attr' => [
+                    'placeholder' => 'Jean'
+                ]
             ])
             ->add('prenom', TextType::class, [
-                'empty_data' => 'Jean'
-            ])
-        ;
+                'label' => 'Prénom',
+                'attr' => [
+                    'placeholder' => 'Jean']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
