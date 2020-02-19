@@ -1,4 +1,7 @@
 # PROJET SORTIR.COM
+## doctrine 
+inversed by design qui a la cle etrangere
+
 demarer symfony 5
 ```bash
 php -S 127.0.0.1:8080 -t public
@@ -32,7 +35,7 @@ on peur creer des entity column par annotation comme dans  Spring
 voir doc : [doctrine](https://www.doctrine-project.org/projects/doctrine-annotations/en/1.6/index.html)
 creer la base
 ```
-phpbin/console doctrine:database:create
+php bin/console doctrine:database:create
 ```
 creer les entity
 ```

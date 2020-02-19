@@ -50,21 +50,27 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $actif;
 
+    private $actif;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur")
+     */
+
+    private $organise;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="user")
      */
-    private $organise;
 
+    private $participe;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
      */
-    private $site;
 
+    private $site;
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", mappedBy="participant")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", inversedBy="participant")
      */
+
     private $sorties;
 
     public function __construct()
@@ -216,6 +222,22 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParticipe()
+    {
+        return $this->participe;
+    }
+
+    /**
+     * @param mixed $participe
+     */
+    public function setParticipe($participe): void
+    {
+        $this->participe = $participe;
     }
 
     public function getSite(): ?Site

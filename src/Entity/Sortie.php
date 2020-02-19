@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
  */
@@ -61,25 +62,20 @@ class Sortie
     private $lieu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="organise")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="participe")
      */
     private $user;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="sorties")
      */
-    private $users;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="sorties")
-     */
     private $participant;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="organise")
      */
     private $organisateur;
-
 
     public function __construct()
     {
@@ -164,12 +160,12 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?bool
+    public function getEtat(): ?Etat
     {
         return $this->etat;
     }
 
-    public function setEtat(bool $etat): self
+    public function setEtat(Etat $etat): self
     {
         $this->etat = $etat;
 

@@ -16,9 +16,10 @@ security:
             security: false
         main:
             anonymous: lazy
+
             guard:
                 authenticators:
-                    - App\Security\LoginFormAuthenticator
+                - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -28,7 +29,7 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 path:     /
             # provider: users_in_memory
-git pu
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
@@ -38,5 +39,5 @@ git pu
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/profile, roles: ROLE_USER }

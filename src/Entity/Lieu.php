@@ -29,12 +29,12 @@ class Lieu
     private $rue;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", precision=8)
      */
     private $lattitude;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", precision=8)
      */
     private $longitude;
 

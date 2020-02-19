@@ -31,7 +31,7 @@ class Site
 
     public function __construct()
     {
-        $this->utilisateurs = new ArrayCollection();
+
         $this->users = new ArrayCollection();
     }
 
