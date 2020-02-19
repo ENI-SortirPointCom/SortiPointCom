@@ -9,13 +9,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class ParticipationFixtures extends Fixture implements DependentFixtureInterface
 {
-
-
     public function load(ObjectManager $manager)
     {
 
         $entities = [
-            $this->make(UserFixtures::REF_TRISTAN, SortieFixtures::REF_SORTIE),
+            $this->make(UserFixtures::REF_TRISTAN, SortieFixtures::REF_SORTIE1),
             $this->make(UserFixtures::REF_ARNAUD, SortieFixtures::REF_SORTIE2)
             ];
 
@@ -30,8 +28,7 @@ class ParticipationFixtures extends Fixture implements DependentFixtureInterface
     {
         /** @var User $user */
        $user = $this->getReference(UserFixtures::REF_PREFIX.'_'.$user);
-
-       $user->addSorty($this->getReference($sortie));
+       $user->addSorty($this->getReference('Sortie_'.SortieFixtures::REF_SORTIE1));
 
         return $user;
     }
@@ -41,7 +38,7 @@ class ParticipationFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies()
     {
-        return [ UserFixtures::class,SortieFixtures::class];
+        return [SortieFixtures::class, UserFixtures::class];
 
     }
 }
