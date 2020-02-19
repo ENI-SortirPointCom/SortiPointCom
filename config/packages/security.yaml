@@ -28,7 +28,7 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 path:     /
             # provider: users_in_memory
-
+git pu
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
