@@ -3,15 +3,30 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="text-center ">
+                <h2 class="h2 mb-3 font-weight-normal">Inscription</h2>
+            </div>
+            {{ form_start(registrationForm) }}
+            <div class="form-group">
+                {{ form_row(registrationForm.nom) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(registrationForm.prenom) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(registrationForm.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(registrationForm.plainPassword) }}
+            </div>
+            <div class="checkbox mb-3">
+                {{ form_row(registrationForm.agreeTerms) }}
+            </div>
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.nom) }}
-    {{ form_row(registrationForm.prenom) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.plainPassword) }}
-    {{ form_row(registrationForm.agreeTerms) }}
-
-    <button class="btn">Valider</button>
-    {{ form_end(registrationForm) }}
+            <button class=" btn btn-success btn-block send-button tx-tfm" type="submit">Valider</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
 {% endblock %}

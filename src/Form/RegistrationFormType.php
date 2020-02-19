@@ -19,24 +19,32 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label' => 'Mail',
+            ->add('nom', TextType::class, [
+                'label' => false,
                 'attr' => [
-                    'placeholder' => 'jean.jean@eni.fr']
+                    'placeholder' => 'Nom',
+                    'class' => 'form-control'
+                ]
             ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Accepter les termes d\'utilisation',
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
+            ->add('prenom', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Prénom',
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Mail',
+                    'class' => 'form-control']
             ])
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'Mot de Passe',
+                'label' => false,
                 'attr' => [
-                    'placeholder' => 'Votre mot de passe'],
+                    'placeholder' => 'Mot de passe',
+                    'class' => 'form-control'
+                ],
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -52,16 +60,14 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('nom', TextType::class, [
-                'label' => 'Nom',
-                'attr' => [
-                    'placeholder' => 'Jean'
-                ]
-            ])
-            ->add('prenom', TextType::class, [
-                'label' => 'Prénom',
-                'attr' => [
-                    'placeholder' => 'Jean']
+            ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Accepter les termes d\'utilisation',
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'You should agree to our terms.',
+                    ]),
+                ],
             ]);
     }
 
