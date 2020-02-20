@@ -19,6 +19,15 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+
+    public function isInscrit(string $mail)
+    {
+        return $this->createQueryBuilder('user')
+            ->select('COUNT(p)')
+            ->innerJoin('sortie.email', 'p')
+            ->where('email = ', $mail)
+            ->getQuery();
+    }
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
