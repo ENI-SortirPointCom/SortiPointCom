@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Routing\Annotation\Route;
 class AccueilController extends AbstractController
 {
     /**
@@ -13,7 +13,6 @@ class AccueilController extends AbstractController
      */
     public function index(EntityManagerInterface $em)
     {
-
         $sorties = $em->getRepository(Sortie::class)->findAll();
 
 

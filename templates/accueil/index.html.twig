@@ -32,7 +32,7 @@
                     <td>{{ sortie.etat|default('undefinned') }}</td>
                     <td>{{ sortie|present(user) }}</td>
                     <td>{{ sortie.organisateur }}</td>
-                    <td>{{ sortie|actions }}action</td>
+                    <td>{{ sortie|actions|join|raw }}</td>
                 </tr>
             {% endfor %}
             </tbody>

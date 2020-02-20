@@ -19,7 +19,8 @@ class AppExtension extends AbstractExtension
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
             new TwigFilter('present', [$this, 'isPresent']),
-            new TwigFilter('nbParticipant',[$this,'nbParticipant'])
+            new TwigFilter('nbParticipant',[$this,'nbParticipant']),
+            new TwigFilter('actions',[$this,'actions'])
         ];
     }
 
@@ -28,9 +29,15 @@ class AppExtension extends AbstractExtension
         return [];
     }
 
-    public function action(Sortie $sortie)
+    public function actions(Sortie $sortie)
     {
-
+        $actions = [];
+        $datetDuJour = date("Y-m-d H:i:s");
+        if($datetDuJour < $sortie->getDateLimitInscription()){
+            array_push($actions,"<a href=\"cheminVersSinscrire\"></a>");
+            array_push($actions,"<a href=\"cheminVersAilleur\"></a>");
+        }
+        return $actions;
     }
 
     /**
