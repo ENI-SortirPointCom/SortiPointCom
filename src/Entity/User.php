@@ -51,7 +51,7 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
 
-    private $actif;
+    private $actif = 1;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur")
      */
