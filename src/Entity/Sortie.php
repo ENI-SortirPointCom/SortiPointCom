@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
@@ -100,36 +100,36 @@ class Sortie
         return $this;
     }
 
-    public function getDateHeureDebut(): ?\DateTimeInterface
+    public function getDateHeureDebut(): ?DateTimeInterface
     {
         return $this->dateHeureDebut;
     }
 
-    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
+    public function setDateHeureDebut(DateTimeInterface $dateHeureDebut): self
     {
         $this->dateHeureDebut = $dateHeureDebut;
 
         return $this;
     }
 
-    public function getHeureFin(): ?\DateTimeInterface
+    public function getHeureFin(): ?DateTimeInterface
     {
         return $this->heureFin;
     }
 
-    public function setHeureFin(\DateTimeInterface $heureFin): self
+    public function setHeureFin(DateTimeInterface $heureFin): self
     {
         $this->heureFin = $heureFin;
 
         return $this;
     }
 
-    public function getDateLimitInscription(): ?\DateTimeInterface
+    public function getDateLimitInscription(): ?DateTimeInterface
     {
         return $this->dateLimitInscription;
     }
 
-    public function setDateLimitInscription(\DateTimeInterface $dateLimitInscription): self
+    public function setDateLimitInscription(DateTimeInterface $dateLimitInscription): self
     {
         $this->dateLimitInscription = $dateLimitInscription;
 
