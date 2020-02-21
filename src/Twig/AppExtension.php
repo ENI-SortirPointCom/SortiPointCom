@@ -19,8 +19,9 @@ class AppExtension extends AbstractExtension
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
             new TwigFilter('present', [$this, 'isPresent']),
-            new TwigFilter('nbParticipant',[$this,'nbParticipant']),
-            new TwigFilter('actions',[$this,'actions'])
+            new TwigFilter('nbParticipant', [$this, 'nbParticipant']),
+            new TwigFilter('actions', [$this, 'actions']),
+            new TwigFilter('isAdmin', [$this, 'isAdmin'])
         ];
     }
 
@@ -33,9 +34,10 @@ class AppExtension extends AbstractExtension
     {
         $actions = [];
         $datetDuJour = date("Y-m-d H:i:s");
-        if($datetDuJour < $sortie->getDateLimitInscription()){
-            array_push($actions,"<a href=\"cheminVersSinscrire\"></a>");
-            array_push($actions,"<a href=\"cheminVersAilleur\"></a>");
+        if ($datetDuJour < $sortie->getDateLimitInscription()) {
+            array_push($actions, "<a href=\"cheminVersSinscrire\"></a>");
+            array_push($actions, "<a href=\"cheminVersAilleur\"></a>");
+
         }
         return $actions;
     }
@@ -46,7 +48,7 @@ class AppExtension extends AbstractExtension
      */
     public function nbParticipant(Sortie $sortie)
     {
-        return  count($sortie->getParticipant());
+        return count($sortie->getParticipant());
     }
 
     /**
@@ -63,6 +65,19 @@ class AppExtension extends AbstractExtension
                 }
             }
             return '-';
+        }
+    }
+
+    public function isAdmin(User $user)
+    {
+        $listeRoles = $user->getRoles();
+        foreach ($listeRoles as $role) {
+            if ($role == 'ROLE_ADMIN') {
+                //' <a class="nav-link " href="{{ path(\'easyadmin\')}}">Administration</a>'
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

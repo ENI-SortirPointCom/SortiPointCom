@@ -36,10 +36,12 @@
                 <a class="nav-link" href="{{ path('accueil') }}">Accueil <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Profil utilisateur</a>
+                <a class="nav-link" href={{ path('profilEdit') }}>Profil utilisateur</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">autre</a>
+                {% if  app.user|isAdmin %}
+                    <a class="nav-link " href="{{ path('easyadmin') }}">Administration</a>
+                {% endif %}
             </li>
 
         </ul>
