@@ -15,9 +15,6 @@ class AccueilController extends AbstractController
     {
         $sorties = $em->getRepository(Sortie::class)->findAll();
 
-
-
-
         return $this->render('accueil/index.html.twig', [
             "sorties" => $sorties,
             /**
