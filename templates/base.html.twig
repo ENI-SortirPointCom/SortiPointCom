@@ -3,10 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        {% block stylesheets %}<link rel="stylesheet" href="https://maxcdn.bootstrapcd n.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         {% endblock %}
     </head>
     <body>
+    <nav class="navbar navbar-expand-sm bg-light justify-content-between navbar-light">
+        <ul class="navbar-nav">
+            {#            <a class="navbar-brand" href="#">#}
+            <li class="nav-item active"><a class="nav-link" href="{{ path('register') }}">Accueil</a></li>
+            <li class="nav-item active"><a class="nav-link" href="{{ path('easyadmin') }}">Liste des animaux</a></li>
+
+{#            <form class="form-inline  my-2 my-lg-0">#}
+{#                <li> {% if app.user %}#}
+{#                <li> {{ app.user.username }} </li>#}
+{#                <li class="form-control mr-sm-2"><a class="fas fa-2x fa-sign-out-alt"#}
+{#                                                    href="{{ path('app_logout') }}"></a></li>#}
+{#                {% else %}#}
+{#                <li class="nav-item active my-2 my-sm-0"><a class="fas fa-2x fa-sign-in-alt"#}
+{#                                                            href="{{ path('app_login') }}"></a></li>#}
+{#                {% endif %}</li>#}
+{#            </form>#}
+            </a>
+        </ul>
+    </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

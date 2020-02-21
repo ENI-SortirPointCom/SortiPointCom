@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EtatRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MotifAnnulationRepository")
  */
-class Etat
+class MotifAnnulation
 {
     /**
      * @ORM\Id()
@@ -24,13 +24,13 @@ class Etat
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="etat")
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="motifAnnulation")
      */
-    private $etat;
+    private $sorties;
 
     public function __construct()
     {
-        $this->etat = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,36 +53,31 @@ class Etat
     /**
      * @return Collection|Sortie[]
      */
-    public function getEtat(): Collection
+    public function getSorties(): Collection
     {
-        return $this->etat;
+        return $this->sorties;
     }
 
-    public function addEtat(Sortie $etat): self
+    public function addSorty(Sortie $sorty): self
     {
-        if (!$this->etat->contains($etat)) {
-            $this->etat[] = $etat;
-            $etat->setEtat($this);
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties[] = $sorty;
+            $sorty->setMotifAnnulation($this);
         }
 
         return $this;
     }
 
-    public function removeEtat(Sortie $etat): self
+    public function removeSorty(Sortie $sorty): self
     {
-        if ($this->etat->contains($etat)) {
-            $this->etat->removeElement($etat);
+        if ($this->sorties->contains($sorty)) {
+            $this->sorties->removeElement($sorty);
             // set the owning side to null (unless already changed)
-            if ($etat->getEtat() === $this) {
-                $etat->setEtat(null);
+            if ($sorty->getMotifAnnulation() === $this) {
+                $sorty->setMotifAnnulation(null);
             }
         }
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->libelle;
     }
 }
