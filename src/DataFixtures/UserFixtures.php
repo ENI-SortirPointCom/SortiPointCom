@@ -20,7 +20,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->passwordEncoder = $passwordEncoder;
+         $this->passwordEncoder = $passwordEncoder;
     }
 
 
@@ -69,7 +69,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [SiteFixtures::class];
-
 
     }
 }

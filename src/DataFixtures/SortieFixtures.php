@@ -57,7 +57,7 @@ class SortieFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies()
     {
-        return [LieuFixtures::class, EtatFixtures::class, SiteFixtures::class, UserFixtures::class];
+        return [LieuFixtures::class, EtatFixtures::class, SiteFixtures::class, UserFixtures::class, MotifAnnulationFixtures::class];
 
     }
 }
