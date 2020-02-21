@@ -56,11 +56,13 @@ class AppExtension extends AbstractExtension
      */
     public function isPresent(Sortie $sortie, User $user)
     {
-        foreach ($sortie->getParticipant() as $participant) {
-            if ($participant->getId() === $user->getId()) {
-                return 'X';
+        if ($user) {
+            foreach ($sortie->getParticipant() as $participant) {
+                if ($participant->getId() === $user->getId()) {
+                    return 'X';
+                }
             }
+            return '-';
         }
-        return '-';
     }
 }
