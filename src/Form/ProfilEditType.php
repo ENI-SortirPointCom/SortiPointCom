@@ -53,6 +53,7 @@ class ProfilEditType extends AbstractType
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
+                'required' => false,
                 'invalid_message' => 'Les mots de passe doivent être identiques',
                 'first_options' => [
                     'label' => false,
@@ -70,9 +71,6 @@ class ProfilEditType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Votre mot de passe doit contenir au mois {{ limit }} caractères',
