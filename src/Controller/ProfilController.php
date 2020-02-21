@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ProfilEditType;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,19 +13,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
-class RegistrationController extends AbstractController
+class ProfilController extends AbstractController
 {
     /**
-     * @Route("/register", name="register")
+     * @Route("/profil", name="profil")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function index()
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('home');
-        }
+        return $this->render('profil/index.html.twig', [
+            'controller_name' => 'ProfilController',
+        ]);
+    }
 
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+    /**
+     * @Route("/profil/edit", name="profilEdit")
+     */
+    public function profilEdit(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(ProfilEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,8 +57,9 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+        return $this->render('profil/profilEdit.html.twig', [
+            'controller_name' => 'Edition de profil',
+            'profilEditForm' => $form->createView(),
         ]);
     }
 }

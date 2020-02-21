@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}profilEdit{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="text-center ">
+                <h2 class="h2 mb-3 font-weight-normal">{{ controller_name }}</h2>
+            </div>
+            {{ form_start(profilEditForm) }}
+            <div class="form-group">
+                {{ form_row(profilEditForm.nom) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(profilEditForm.prenom) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(profilEditForm.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(profilEditForm.site) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(profilEditForm.plainPassword) }}
+            </div>
+
+            <button class=" btn btn-success btn-block send-button tx-tfm" type="submit">Valider</button>
+            {{ form_end(profilEditForm) }}
+        </div>
+    </div>
+{% endblock %}
