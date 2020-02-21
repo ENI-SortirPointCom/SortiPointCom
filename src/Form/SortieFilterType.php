@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,15 +13,18 @@ class SortieFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('dateHeureDebut')
+            ->add('nom', TextType::class, [
+                'label' => 'le nom de la sortie contient : ',
+                'attr' => [
+                    'placeholder' => 'search',
+                ]
+
+            ])
+            ->add('dateHeureDebut',TextType::class,[
+
+    ])
             ->add('heureFin')
-            ->add('dateLimitInscription')
-            ->add('lieu')
-            ->add('user')
-            ->add('participant')
-            ->add('organisateur')
-        ;
+            ->add('dateLimitInscription');
     }
 
     public function configureOptions(OptionsResolver $resolver)
