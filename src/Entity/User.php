@@ -51,7 +51,7 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
 
-    private $actif;
+    private $actif = 1;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur")
      */
@@ -276,5 +276,13 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+       return $this->nom;
     }
 }
