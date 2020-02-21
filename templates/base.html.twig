@@ -46,8 +46,7 @@
 
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <i>{{ app.user.username }}</i>
-            &nbsp;
+
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><a href="{{ path('app_logout') }}">Deconnexion</a>
             </button>
             {% else %}
@@ -56,11 +55,11 @@
         </form>
     </div>
 </nav>
+<div class="d-flex align-items-end flex-column">
+    <div class="p-2"><b>Date du jour : {{ "now"|date("d/m/Y") }}</b></div>
+    <div class="p-2"><b>Participant : {{ app.user.nom }} {{ app.user.prenom }}</b></div>
+</div>
 
-</form>
-
-</ul>
-</nav>
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 </body>
