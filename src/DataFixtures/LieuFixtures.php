@@ -28,7 +28,7 @@ class LieuFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
     }
-    private function make(string $nom,string $rue,string $lattitude, string $longitude, string $ville): Lieu
+    private function make(string $nom,string $rue, $lattitude, $longitude, string $ville): Lieu
     {
         $entity = new Lieu();
 

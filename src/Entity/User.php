@@ -75,7 +75,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
-
+        $this->organise = new ArrayCollection();
     }
 
 
@@ -283,6 +283,6 @@ class User implements UserInterface
      */
     public function __toString()
     {
-        return $this->nom;
+       return $this->nom;
     }
 }

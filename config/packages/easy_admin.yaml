@@ -1,16 +1,18 @@
 easy_admin:
   site_name: 'Sortir Point Com'
+  user:
+    display_name: true
   entities:
-  # List the entity class name you want to manage
-    Etat:
-      class: App\Entity\Etat
-    Lieu:
-      class: App\Entity\Lieu
-    Site:
-      class: App\Entity\Site
+    # List the entity class name you want to manage
+    User:
+      class: App\Entity\User
     Sortie:
       class: App\Entity\Sortie
-    Utilisateur:
-      class: App\Entity\Utilisateur
+    Etat:
+      class: App\Entity\Etat
+    Site:
+      class: App\Entity\Site
+    Lieu:
+      class: App\Entity\Lieu
     Ville:
       class: App\Entity\Ville
