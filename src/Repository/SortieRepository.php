@@ -28,6 +28,8 @@ class SortieRepository extends ServiceEntityRepository
             ->where('email = ', $mail)
             ->getQuery();
     }
+
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
