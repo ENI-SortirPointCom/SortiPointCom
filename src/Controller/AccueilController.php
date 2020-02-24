@@ -18,29 +18,31 @@ class AccueilController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $em)
     {
-        $sorties = $em->getRepository(Sortie::class)->findAll();
         $sites = $em->getRepository(Site::class)->findAll();
         $search = new Search();
         $form = $this->createForm(SortieFilterType::class, $search);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $sorties = $em->getRepository(Sortie::class)->findBySearch($search);
+        } else {
+            $sorties = $em->getRepository(Sortie::class)->findAll();
         }
 
 
-            return $this->render('accueil/index.html.twig', [
-                "sorties" => $sorties,
-                "sites" => $sites,
-                "controller_name" => 'Accueil',
-                'sortieFilterForm' => $form->createView(),
-                /**
-                 * pour passer en parametre de l'extension twig pesonnalisée
-                 */
-                'user' => $this->getUser()
-            ]);
-        }
+        return $this->render('accueil/index.html.twig', [
+            "sorties" => $sorties,
+            "sites" => $sites,
+            "controller_name" => 'Accueil',
+            'sortieFilterForm' => $form->createView(),
+            /**
+             * pour passer en parametre de l'extension twig pesonnalisée
+             */
+            'user' => $this->getUser()
+        ]);
+    }
 
 
 //public function formSearchSortie(Request $request)

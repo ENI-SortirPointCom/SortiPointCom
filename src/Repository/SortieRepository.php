@@ -23,17 +23,21 @@ class SortieRepository extends ServiceEntityRepository
     public function findBySearch(Search $search)
     {
         $req = $this->createQueryBuilder('s')
-            ->select('s')
+            ->
+            select('s')
             ->where('s.nom LIKE :nom')->setParameter('nom', "%" . $search->getNomSearch() . "%");
+
+
 //            ->andWhere('s.dateHeureDebut LIKE :dateDebut')->setParameter('dateDebut', $search->getDateDebut())
 //            ->andWhere('s.dateLimitInscription LIKE :dateFin')->setParameter('dateFin', $search->getDateFin())
 
         if (!is_null($search->getSiteSortie())) {
             $req->andWhere('IDENTITY(s.site) LIKE :siteSortie')->setParameter('siteSortie', $search->getSiteSortie());
         }
+        if (!is_null($search->getOrganisateur())) {
+            $req->andwhere('IDENTITY(s.organisateur) LIKE :organisateur')->setParameter('organisateur', $search->getOrganisateur());
+        }
 
-
-//            ->andwhere('IDENTITY(s.organisateur) LIKE :organisateur')->setParameter('organisateur', $search->getOrganisateur())
         return $req->getQuery()->getResult();
 
     }
