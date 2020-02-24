@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Search;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -19,14 +20,22 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-
-    public function isInscrit(string $mail)
+    public function findBySearch(Search $search)
     {
-        return $this->createQueryBuilder('user')
-            ->select('COUNT(p)')
-            ->innerJoin('sortie.email', 'p')
-            ->where('email = ', $mail)
-            ->getQuery();
+        $req = $this->createQueryBuilder('s')
+            ->select('s')
+            ->where('s.nom LIKE :nom')->setParameter('nom', "%" . $search->getNomSearch() . "%");
+//            ->andWhere('s.dateHeureDebut LIKE :dateDebut')->setParameter('dateDebut', $search->getDateDebut())
+//            ->andWhere('s.dateLimitInscription LIKE :dateFin')->setParameter('dateFin', $search->getDateFin())
+
+        if (!is_null($search->getSiteSortie())) {
+            $req->andWhere('IDENTITY(s.site) LIKE :siteSortie')->setParameter('siteSortie', $search->getSiteSortie());
+        }
+
+
+//            ->andwhere('IDENTITY(s.organisateur) LIKE :organisateur')->setParameter('organisateur', $search->getOrganisateur())
+        return $req->getQuery()->getResult();
+
     }
 
 

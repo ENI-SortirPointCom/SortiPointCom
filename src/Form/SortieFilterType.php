@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Search;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,7 +28,7 @@ class SortieFilterType extends AbstractType
                 'required' => false
 
             ])
-            ->add('participant', ChoiceType::class, [
+            ->add('etatInscrit', ChoiceType::class, [
                 'label' => 'Sorties',
                 'required' => false,
                 'expanded' => true,
@@ -39,27 +40,27 @@ class SortieFilterType extends AbstractType
                     'Auquelles je ne suis pas inscrit/e' => true,
                 ],
             ])
-            ->add('etat', CheckboxType::class, [
+            ->add('passe', CheckboxType::class, [
                 'label' => 'Sorties passées',
                 'required' => false
             ])
-            ->add('site', EntityType::class, [
+            ->add('siteSortie', EntityType::class, [
                 'class' => Site::class,
                 'required' => false
             ])
-            ->add('nom', TextType::class, [
+            ->add('nomSearch', TextType::class, [
                 'required' => false,
                 'label' => 'le nom de la sortie contient : ',
                 'attr' => [
                     'placeholder' => '  search',
                 ]
             ])
-            ->add('dateHeureDebut', DateType::class, [
+            ->add('dateDebut', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false
 
             ])
-            ->add('heureFin', DateType::class, [
+            ->add('dateFin', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false
 
@@ -72,7 +73,7 @@ class SortieFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-
+            'data_class'=>Search::class
         ]);
     }
 }

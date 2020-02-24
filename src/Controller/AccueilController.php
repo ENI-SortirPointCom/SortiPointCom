@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Search;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Form\SortieFilterType;
@@ -19,32 +20,27 @@ class AccueilController extends AbstractController
     {
         $sorties = $em->getRepository(Sortie::class)->findAll();
         $sites = $em->getRepository(Site::class)->findAll();
-        $form = $this->createForm(SortieFilterType::class);
+        $search = new Search();
+        $form = $this->createForm(SortieFilterType::class, $search);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $site = $form->get('site')->getData();
-            $isOrga = $form->get('organisateur')->getData();
             $em = $this->getDoctrine()->getManager();
-            if ($isOrga){
-                $sorties = $em->getRepository(Sortie::class)->findBy(array('organisateur'=>$this->getUser()));
-            }
-
-
+            $sorties = $em->getRepository(Sortie::class)->findBySearch($search);
         }
 
-        return $this->render('accueil/index.html.twig', [
-            "sorties" => $sorties,
-            "sites" => $sites,
-            "controller_name" => 'Accueil',
-            'sortieFilterForm' => $form->createView(),
-            /**
-             * pour passer en parametre de l'extension twig pesonnalisée
-             */
-            'user' => $this->getUser()
-        ]);
-    }
 
+            return $this->render('accueil/index.html.twig', [
+                "sorties" => $sorties,
+                "sites" => $sites,
+                "controller_name" => 'Accueil',
+                'sortieFilterForm' => $form->createView(),
+                /**
+                 * pour passer en parametre de l'extension twig pesonnalisée
+                 */
+                'user' => $this->getUser()
+            ]);
+        }
 
 
 //public function formSearchSortie(Request $request)
@@ -58,5 +54,6 @@ class AccueilController extends AbstractController
 //
 //
 //}
+
 
 }
