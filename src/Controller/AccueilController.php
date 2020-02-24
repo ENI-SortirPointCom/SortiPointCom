@@ -21,8 +21,10 @@ class AccueilController extends AbstractController
         $form = $this->createForm(SortieFilterType::class);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filtres = $form->getData();
 
-
+        }
 
         return $this->render('accueil/index.html.twig', [
             "sorties" => $sorties,
@@ -35,6 +37,7 @@ class AccueilController extends AbstractController
             'user' => $this->getUser()
         ]);
     }
+
 
 
 //public function formSearchSortie(Request $request)

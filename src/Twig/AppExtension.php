@@ -21,7 +21,8 @@ class AppExtension extends AbstractExtension
             new TwigFilter('inscrit', [$this, 'isInscrit']),
             new TwigFilter('nbParticipant', [$this, 'nbParticipant']),
             new TwigFilter('actions', [$this, 'actions']),
-            new TwigFilter('isAdmin', [$this, 'isAdmin'])
+            new TwigFilter('isAdmin', [$this, 'isAdmin']),
+            new TwigFilter('truncnom',[$this,'truncnom'])
         ];
     }
 
@@ -30,6 +31,10 @@ class AppExtension extends AbstractExtension
         return [];
     }
 
+    public function truncnom(string $nom){
+
+        return $nom[0].'.';
+    }
     public function actions(Sortie $sortie, User $user)
     {
         $actions = [];
