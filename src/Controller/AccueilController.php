@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Search;
 use App\Entity\Site;
 use App\Entity\Sortie;
+use App\Entity\User;
 use App\Form\SortieFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +45,28 @@ class AccueilController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/register/{id}", requirements={"id": "\d+"}, name="accueil_register")
+     */
+    public function register(Request $request, EntityManagerInterface $em)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        /** @var Sortie $sortie */
+        $sortie = $em->getRepository('App:Sortie')->find($request->get('id'));
+
+        if ($user->getSorties()->contains($sortie)) {
+            $user->removeSorty($sortie);
+        } else {
+            $user->addSorty($sortie);
+        }
+
+        $em->flush();
+
+        return $this->redirectToRoute('accueil');
+    }
 
 //public function formSearchSortie(Request $request)
 //{

@@ -57,9 +57,9 @@ class AppExtension extends AbstractExtension
          */
         foreach ($sortie->getParticipant() as $participant) {
             if ($participant === $user) {
-                array_push($actions, "<a href=\"sedesister\">se désister</a>&nbsp;");
+                array_push($actions, "<a href=\"register/". $sortie->getId() ."\">se désister</a>&nbsp;");
             } else {
-                array_push($actions, "<a href=\"sinscrire\">s'inscrire</a>&nbsp;");
+                array_push($actions, "<a href=\"register/". $sortie->getId() ."\">s'inscrire</a>&nbsp;");
             }
         }
         /**
