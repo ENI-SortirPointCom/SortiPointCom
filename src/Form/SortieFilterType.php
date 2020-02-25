@@ -47,13 +47,14 @@ class SortieFilterType extends AbstractType
             ])
             ->add('siteSortie', EntityType::class, [
                 'class' => Site::class,
+                'placeholder'=> '--Site--',
                 'required' => false
             ])
             ->add('nomSearch', TextType::class, [
                 'required' => false,
-                'label' => 'Nom de la sortie',
+                'label' => 'Nom sortie',
                 'attr' => [
-                    'placeholder' => '  search',
+                    'placeholder' => 'search',
                 ]
             ])
             ->add('dateDebut', DateType::class, [
