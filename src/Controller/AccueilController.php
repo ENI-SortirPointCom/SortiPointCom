@@ -26,7 +26,7 @@ class AccueilController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $sorties = $em->getRepository(Sortie::class)->findBySearch($search);
+            $sorties = $em->getRepository(Sortie::class)->findBySearch($this->getUser(), $search);
         } else {
             $sorties = $em->getRepository(Sortie::class)->findAll();
         }

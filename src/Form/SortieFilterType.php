@@ -35,9 +35,9 @@ class SortieFilterType extends AbstractType
                 'multiple' => false,
                 'placeholder' => false,
                 'choices' => [
-                    'Toute' => null,
-                    'Auquelles je suis inscrit/e' => false,
-                    'Auquelles je ne suis pas inscrit/e' => true,
+                    'Toutes' => null,
+                    'Auquelles je suis inscrit/e' => true,
+                    'Auquelles je ne suis pas inscrit/e' => false,
                 ],
             ])
             ->add('passe', CheckboxType::class, [
