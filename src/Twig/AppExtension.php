@@ -22,7 +22,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('nbParticipant', [$this, 'nbParticipant']),
             new TwigFilter('actions', [$this, 'actions']),
             new TwigFilter('isAdmin', [$this, 'isAdmin']),
-            new TwigFilter('truncnom',[$this,'truncnom'])
+            new TwigFilter('truncnom', [$this, 'truncnom'])
         ];
     }
 
@@ -31,10 +31,12 @@ class AppExtension extends AbstractExtension
         return [];
     }
 
-    public function truncnom(string $nom){
+    public function truncnom(string $nom)
+    {
 
-        return $nom[0].'.';
+        return $nom[0] . '.';
     }
+
     public function actions(Sortie $sortie, User $user)
     {
         $actions = [];
@@ -43,7 +45,7 @@ class AppExtension extends AbstractExtension
          * si l'utilisateur est inscrit et que la date limite d'insciption n'est pas dépassé alors
          * afficher
          */
-        if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant())< $sortie->getNbInscriptionMax()) {
+        if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant()) < $sortie->getNbInscriptionMax()) {
             array_push($actions, "<a href=\"afficher\">afficher</a>&nbsp;");
         }
         /**
@@ -55,25 +57,25 @@ class AppExtension extends AbstractExtension
         /**
          * si le user est inscrit alors peut se desister
          */
-        foreach ($sortie->getParticipant() as $participant) {
-            if ($participant === $user) {
-                array_push($actions, "<a href=\"register/". $sortie->getId() ."\">se désister</a>&nbsp;");
-            } else {
-                array_push($actions, "<a href=\"register/". $sortie->getId() ."\">s'inscrire</a>&nbsp;");
-            }
+        if ($sortie->getParticipant()->contains($user)) {
+            array_push($actions, "<a href=\"register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
+        }elseif ($sortie->getEtat()->getLibelle() == 'PASSE') {
+
+        }else  {
+            array_push($actions, "<a href=\"register/" . $sortie->getId() . "\">S'inscrire</a>&nbsp;");
         }
+
         /**
          * si le user est l'organisateur et que l'etat est 'en creation' alors peut publier
          */
-        if ($sortie->getOrganisateur() == $user && $sortie->getEtat() === 'EN CREATION') {
+        if ($sortie->getOrganisateur() == $user && $sortie->getEtat() == 'EN CREATION') {
             array_push($actions, "<a href=\"publier\">publier</a>&nbsp;");
         }
 
         /**
          * si le user est l'organisateur et etat ouvert alors peut annuler
          */
-        if($sortie->getOrganisateur() == $user && $sortie->getEtat() == 'OUVERT')
-        {
+        if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() == 'OUVERT')) {
             array_push($actions, "<a href=\"annuler\">Annuler</a>&nbsp;");
         }
 
@@ -98,7 +100,7 @@ class AppExtension extends AbstractExtension
     {
         if ($user) {
             foreach ($sortie->getParticipant() as $participant) {
-                if ($participant->getId() === $user->getId()) {
+                if ($participant == $user) {
                     return "<span class=\"badge badge-pill badge-success\">Inscris</span>";
                 }
             }
