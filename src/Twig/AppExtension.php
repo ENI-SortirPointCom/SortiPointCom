@@ -43,7 +43,7 @@ class AppExtension extends AbstractExtension
          * si l'utilisateur est inscrit et que la date limite d'insciption n'est pas dépassé alors
          * afficher
          */
-        if ($datetDuJour < $sortie->getDateLimitInscription()) {
+        if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant())< $sortie->getNbInscriptionMax()) {
             array_push($actions, "<a href=\"afficher\">afficher</a>&nbsp;");
         }
         /**
@@ -72,7 +72,7 @@ class AppExtension extends AbstractExtension
         /**
          * si le user est l'organisateur et etat ouvert alors peut annuler
          */
-        if($sortie->getOrganisateur() == $user && $sortie->getEtat() === 'OUVERT')
+        if($sortie->getOrganisateur() == $user && $sortie->getEtat() == 'OUVERT')
         {
             array_push($actions, "<a href=\"annuler\">Annuler</a>&nbsp;");
         }
