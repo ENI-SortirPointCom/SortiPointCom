@@ -24,14 +24,12 @@ class AccueilController extends AbstractController
         $form = $this->createForm(SortieFilterType::class, $search);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $sorties = $em->getRepository(Sortie::class)->findBySearch($this->getUser(), $search);
         } else {
             $sorties = $em->getRepository(Sortie::class)->findByLimitOneMonth();
         }
-
 
         return $this->render('accueil/index.html.twig', [
             "sorties" => $sorties,

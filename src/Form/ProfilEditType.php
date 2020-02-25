@@ -6,16 +6,13 @@ use App\Entity\Site;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ProfilEditType extends AbstractType
 {
@@ -23,50 +20,53 @@ class ProfilEditType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => false,
+                'label' => 'Nom',
                 'attr' => [
                     'placeholder' => 'Nom',
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
             ->add('prenom', TextType::class, [
-                'label' => false,
+                'label' => 'Prenom',
                 'attr' => [
                     'placeholder' => 'Prénom',
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
             ->add('email', EmailType::class, [
-                'label' => false,
+                'label' => 'user@mail.fr',
                 'attr' => [
                     'placeholder' => 'Mail',
-                    'class' => 'form-control']
+                    'class' => 'form-control',
+                ],
             ])
             ->add('site', EntityType::class, [
-                'label' => false,
+                'label' => 'Site',
                 'class' => Site::class,
                 'choice_label' => 'nom',
                 'placeholder' => '--Site--',
                 'attr' => [
-                    'class' => 'form control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => false,
                 'invalid_message' => 'Les mots de passe doivent être identiques',
                 'first_options' => [
-                    'label' => false,
+                    'label' => 'Mot de passe',
                     'attr' => [
-                        'placeholder' => 'Mot de passe',
-                        'class' => 'form-control'
-                    ]],
+                        'placeholder' => 'Votre mot de passe',
+                        'class' => 'form-control',
+                    ],
+                ],
                 'second_options' => [
-                    'label' => false,
+                    'label' => 'Répétez mot de passe',
                     'attr' => [
-                        'placeholder' => 'Répétez mot de passe',
-                        'class' => 'form-control'
-                    ]],
+                        'placeholder' => 'Répétez votre mot de passe',
+                        'class' => 'form-control',
+                    ],
+                ],
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,

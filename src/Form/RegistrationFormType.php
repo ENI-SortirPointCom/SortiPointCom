@@ -23,47 +23,47 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => false,
+                'label' => 'Nom',
                 'attr' => [
                     'placeholder' => 'Nom',
                     'class' => 'form-control'
                 ]
             ])
             ->add('prenom', TextType::class, [
-                'label' => false,
+                'label' => 'Prénom',
                 'attr' => [
                     'placeholder' => 'Prénom',
                     'class' => 'form-control'
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => false,
+                'label' => 'Mail',
                 'attr' => [
                     'placeholder' => 'Mail',
                     'class' => 'form-control']
             ])
             ->add('site', EntityType::class, [
-                'label' => false,
+                'label' => 'Site',
                 'class' => Site::class,
                 'choice_label' => 'nom',
                 'placeholder' => '--Site--',
                 'attr' => [
-                    'class' => 'form control'
+                    'class' => 'form-control'
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être identiques',
                 'first_options' => [
-                    'label' => false,
+                    'label' => 'Mot de passe',
                     'attr' => [
-                        'placeholder' => 'Mot de passe',
+                        'placeholder' => 'Vôtre mot de passe',
                         'class' => 'form-control'
                     ]],
                 'second_options' => [
-                    'label' => false,
+                    'label' => 'Répétez le mot de passe',
                     'attr' => [
-                        'placeholder' => 'Répétez mot de passe',
+                        'placeholder' => 'Répétez vôtre mot de passe',
                         'class' => 'form-control'
                     ]],
                 // instead of being set onto the object directly,
@@ -83,7 +83,13 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'Accepter les termes d\'utilisation',
+                'label_attr' => [
+                    'class' => 'form-check-label',
+                ],
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'form-check',
+                ],
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',

@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}{{ controller_name }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="text-center ">
-                <h2 class="h2 mb-3 font-weight-normal">Inscription</h2>
+                <h2 class="h2 mb-3 font-weight-normal">{{ controller_name }}</h2>
             </div>
             {{ form_start(registrationForm) }}
             <div class="form-group">
@@ -24,12 +24,19 @@
             <div class="form-group">
                 {{ form_row(registrationForm.plainPassword) }}
             </div>
-            <div class="checkbox mb-3">
+            <div class="form-group">
                 {{ form_row(registrationForm.agreeTerms) }}
             </div>
 
             <button class=" btn btn-success btn-block send-button tx-tfm" type="submit">Valider</button>
             {{ form_end(registrationForm) }}
+            <hr class="hr-or">
+            <div>
+                <div class="form-group">
+                    <a class="btn btn-info btn-block send-button tx-tfm" href="{{ path('app_login') }}">Déja inscrit
+                        ?</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

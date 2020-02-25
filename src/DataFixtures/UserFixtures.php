@@ -20,28 +20,31 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
-         $this->passwordEncoder = $passwordEncoder;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
 
     public function load(ObjectManager $manager)
     {
         $user = new User();
-        $user->setPassword($this->passwordEncoder->encodePassword($user,'thenewpassword'));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, 'thenewpassword'));
         $entities = [
-            $this->make('Evano', 'TRISTAN','Tristan@eni.fr','abcd', SiteFixtures::REF_RENNES)
+            $this->make('Evano', 'TRISTAN', 'Tristan@eni.fr', '$argon2id$v=19$m=65536,t=4,p=1$eWQ3NmxZNGhob05tWFZuUw$zWbcydwtG3oo8hzxvQ/ILCDWihPe1sd1mRkdMTHLPcU', SiteFixtures::REF_RENNES)
                 ->setRoles(['ROLE_ADMIN']),
-            $this->make('Coste', 'ARNAUD', 'arnaud@eni.fr','efgh', SiteFixtures::REF_RENNES)
+            $this->make('Coste', 'ARNAUD', 'arnaud@eni.fr', '$argon2id$v=19$m=65536,t=4,p=1$eWQ3NmxZNGhob05tWFZuUw$zWbcydwtG3oo8hzxvQ/ILCDWihPe1sd1mRkdMTHLPcU', SiteFixtures::REF_RENNES)
                 ->setRoles(['ROLE_ADMIN']),
-            $this->make('Xavier', 'Charles', 'charles.xanier@eni.fr','introuvable', SiteFixtures::REF_NIORT)
+            $this->make('Xavier', 'Charles', 'charles.xanier@eni.fr', '$argon2id$v=19$m=65536,t=4,p=1$UzJVdjlhWnQucVZTUjMyZA$fH4yn5bGnvxgL0Th3NJC8OCcKUjbp0sTvG24Q78M1ds', SiteFixtures::REF_NIORT)
+                ->setRoles(['ROLE_USER']),
         ];
 
-        array_walk($entities, function ($e) use ($manager) { $manager->persist($e); });
+        array_walk($entities, function ($e) use ($manager) {
+            $manager->persist($e);
+        });
 
         $manager->flush();
     }
 
-    private function make(string $nom, string $prenom, string $mail,string $password, string $siteRef): User
+    private function make(string $nom, string $prenom, string $mail, string $password, string $siteRef): User
     {
         $entity = new User();
 
@@ -51,16 +54,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $entity->setEmail($mail);
         $entity->setActif(true);
 
-        $entity->setSite($this->getReference(SiteFixtures::REF_PREFIX.'_'.$siteRef));
+        $entity->setSite($this->getReference(SiteFixtures::REF_PREFIX . '_' . $siteRef));
 
-        $this->addReference('user_'.$prenom, $entity);
+        $this->addReference('user_' . $prenom, $entity);
 
 //        $this->getReference('ville_35000');
 
         return $entity;
     }
-
-
 
 
     /**
