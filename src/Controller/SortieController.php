@@ -15,6 +15,8 @@ class SortieController extends AbstractController
 {
     /**
      * @Route("/sortie/create", name="sortie_create")
+     * @param Request $request
+     * @return Response
      */
     public function sortieCreate(Request $request): Response
     {
