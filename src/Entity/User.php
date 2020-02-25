@@ -69,7 +69,6 @@ class User implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", inversedBy="participant")
      */
-
     private $sorties;
 
     public function __construct()

@@ -28,7 +28,7 @@ class AccueilController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $sorties = $em->getRepository(Sortie::class)->findBySearch($this->getUser(), $search);
         } else {
-            $sorties = $em->getRepository(Sortie::class)->findAll();
+            $sorties = $em->getRepository(Sortie::class)->findByLimitOneMonth();
         }
 
 
