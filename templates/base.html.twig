@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
@@ -13,11 +17,6 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
               crossorigin="anonymous">
-        <script
-                src="https://code.jquery.com/jquery-3.4.1.min.js"
-                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-                crossorigin="anonymous"></script>
-
     {% endblock %}
 </head>
 <body>
@@ -36,7 +35,10 @@
                 <a class="nav-link" href="{{ path('accueil') }}">Accueil <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href={{ path('profilEdit') }}>Profil utilisateur</a>
+                <a class="nav-link" href={{ path('profil_edit') }}>Profil utilisateur</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href={{ path('sortie_create') }}>Créer une sortie</a>
             </li>
             <li class="nav-item">
                 {% if  app.user|isAdmin %}
@@ -55,11 +57,6 @@
             {% endif %}
         </form>
     </div>
-</nav>
-
-</form>
-
-</ul>
 </nav>
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
