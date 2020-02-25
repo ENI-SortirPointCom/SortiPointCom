@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LieuController extends AbstractController
 {
     /**
-     * @Route("/lieu/create", name="lieuCreate")
+     * @Route("/lieu/create", name="lieu_create")
      */
     public function LieuCreate(Request $request): Response
     {

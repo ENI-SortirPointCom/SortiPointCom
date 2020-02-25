@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     /**
-     * @Route("/sortie/create", name="sortieCreate")
+     * @Route("/sortie/create", name="sortie_create")
      */
     public function sortieCreate(Request $request): Response
     {

@@ -16,7 +16,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/profil/edit", name="profilEdit")
+     * @Route("/profil/edit", name="profil_edit")
      */
     public function profilEdit(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {

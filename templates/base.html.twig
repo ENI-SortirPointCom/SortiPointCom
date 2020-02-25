@@ -35,10 +35,10 @@
                 <a class="nav-link" href="{{ path('accueil') }}">Accueil <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href={{ path('profilEdit') }}>Profil utilisateur</a>
+                <a class="nav-link" href={{ path('profil_edit') }}>Profil utilisateur</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href={{ path('sortieCreate') }}>Créer une sortie</a>
+                <a class="nav-link" href={{ path('sortie_create') }}>Créer une sortie</a>
             </li>
             <li class="nav-item">
                 {% if  app.user|isAdmin %}
