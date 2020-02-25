@@ -65,18 +65,4 @@ class AccueilController extends AbstractController
 
         return $this->redirectToRoute('accueil');
     }
-
-//public function formSearchSortie(Request $request)
-//{
-//    $form = $this->createForm(SortieFilterType::class);
-//    $form->handleRequest($request);
-//
-//    return $this->render('accueil/sortieFilter.html.twig', [
-//        'sortieFilterForm' => $form->createView()
-//    ]);
-//
-//
-//}
-
-
 }
