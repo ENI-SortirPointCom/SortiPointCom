@@ -18,10 +18,11 @@ class AppExtension extends AbstractExtension
             // If your filter generates SAFE HTML, you should add a third
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
-            new TwigFilter('present', [$this, 'isPresent']),
+            new TwigFilter('inscrit', [$this, 'isInscrit']),
             new TwigFilter('nbParticipant', [$this, 'nbParticipant']),
             new TwigFilter('actions', [$this, 'actions']),
-            new TwigFilter('isAdmin', [$this, 'isAdmin'])
+            new TwigFilter('isAdmin', [$this, 'isAdmin']),
+            new TwigFilter('truncnom',[$this,'truncnom'])
         ];
     }
 
@@ -30,15 +31,52 @@ class AppExtension extends AbstractExtension
         return [];
     }
 
-    public function actions(Sortie $sortie)
+    public function truncnom(string $nom){
+
+        return $nom[0].'.';
+    }
+    public function actions(Sortie $sortie, User $user)
     {
         $actions = [];
-        $datetDuJour = date("Y-m-d H:i:s");
-        if ($datetDuJour < $sortie->getDateLimitInscription()) {
-            array_push($actions, "<a href=\"cheminVersSinscrire\"></a>");
-            array_push($actions, "<a href=\"cheminVersAilleur\"></a>");
-
+        $datetDuJour = date("d-m-Y H:i:s");
+        /**
+         * si l'utilisateur est inscrit et que la date limite d'insciption n'est pas dépassé alors
+         * afficher
+         */
+        if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant())< $sortie->getNbInscriptionMax()) {
+            array_push($actions, "<a href=\"afficher\">afficher</a>&nbsp;");
         }
+        /**
+         * si le user est l'organisateur alors peut modifier
+         */
+        if ($sortie->getOrganisateur() == $user) {
+            array_push($actions, "<a href=\"modifier\">Modifier</a>&nbsp;");
+        }
+        /**
+         * si le user est inscrit alors peut se desister
+         */
+        foreach ($sortie->getParticipant() as $participant) {
+            if ($participant === $user) {
+                array_push($actions, "<a href=\"register/". $sortie->getId() ."\">se désister</a>&nbsp;");
+            } else {
+                array_push($actions, "<a href=\"register/". $sortie->getId() ."\">s'inscrire</a>&nbsp;");
+            }
+        }
+        /**
+         * si le user est l'organisateur et que l'etat est 'en creation' alors peut publier
+         */
+        if ($sortie->getOrganisateur() == $user && $sortie->getEtat() === 'EN CREATION') {
+            array_push($actions, "<a href=\"publier\">publier</a>&nbsp;");
+        }
+
+        /**
+         * si le user est l'organisateur et etat ouvert alors peut annuler
+         */
+        if($sortie->getOrganisateur() == $user && $sortie->getEtat() == 'OUVERT')
+        {
+            array_push($actions, "<a href=\"annuler\">Annuler</a>&nbsp;");
+        }
+
         return $actions;
     }
 
@@ -56,15 +94,15 @@ class AppExtension extends AbstractExtension
      * @param User $user
      * @return si l'utilisateur courant est present à la sortie
      */
-    public function isPresent(Sortie $sortie, User $user)
+    public function isInscrit(Sortie $sortie, User $user)
     {
         if ($user) {
             foreach ($sortie->getParticipant() as $participant) {
                 if ($participant->getId() === $user->getId()) {
-                    return 'X';
+                    return "<span class=\"badge badge-pill badge-success\">Inscris</span>";
                 }
             }
-            return '-';
+            return "<span class=\"badge badge-pill badge-danger\">Pas Inscris</span>";;
         }
     }
 

@@ -77,6 +77,12 @@ class Sortie
      */
     private $organisateur;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
+     */
+    private $site;
+
+
     public function __construct()
     {
         $this->participant = new ArrayCollection();
@@ -236,6 +242,7 @@ class Sortie
     {
         if (!$this->participant->contains($participant)) {
             $this->participant[] = $participant;
+            $participant->addSorty($this);
         }
 
         return $this;
@@ -265,6 +272,18 @@ class Sortie
     public function __toString()
     {
         return $this->nom;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
     }
 
 }
