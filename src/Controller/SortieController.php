@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
-use App\Form\SortieType;
+use App\Entity\Sortie;
+use App\Entity\User;
+use App\Form\SortieCreateType;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,17 +18,27 @@ class SortieController extends AbstractController
      */
     public function sortieCreate(Request $request): Response
     {
-        $form = $this->createForm(SortieType::class);
+        $sortie = new Sortie();
+
+        $form = $this->createForm(SortieCreateType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist();
+            $sortie->setOrganisateur($this->getUser());
+            $sortie->setEtat($entityManager->getRepository('App:Etat')->find(2));
+            if ($form->get('participate')->getData()) {
+                $this->getUser()->addSorty($sortie);
+                $sortie->addParticipant($this->getUser());
+            }
+            $entityManager->persist($sortie);
             $entityManager->flush();
+            return $this->redirectToRoute('home');
         }
         return $this->render('sortie/sortieCreate.html.twig', [
             'controller_name' => 'Création d\'une sortie',
             'sortieCreateForm' => $form->createView(),
+
         ]);
     }
 }
