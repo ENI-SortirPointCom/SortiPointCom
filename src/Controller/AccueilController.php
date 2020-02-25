@@ -54,7 +54,6 @@ class AccueilController extends AbstractController
 
         /** @var Sortie $sortie */
         $sortie = $em->getRepository('App:Sortie')->find($request->get('id'));
-
         if ($user->getSorties()->contains($sortie)) {
             $user->removeSorty($sortie);
         } else {
