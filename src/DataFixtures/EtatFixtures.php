@@ -10,7 +10,6 @@ class EtatFixtures extends Fixture
 {
     const REF_PREFIX = 'etat';
 
-    const REF_CREE = 'CREE';
     const REF_OUVERT= 'OUVERT';
     const REF_CLOTURE = 'CLOTURE';
     const REF_EN_COURS = 'EN COURS';
@@ -21,7 +20,6 @@ class EtatFixtures extends Fixture
     {
         $user = new Etat();
         $entities = [
-            $this->make(self::REF_CREE),
             $this->make(self::REF_OUVERT),
             $this->make(self::REF_CLOTURE),
             $this->make(self::REF_EN_COURS),
