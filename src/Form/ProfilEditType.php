@@ -80,7 +80,6 @@ class ProfilEditType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-
             ])
             ->add('image', FileType::class, [
                 'label' => 'Choisir votre Avatar   ',
@@ -96,7 +95,7 @@ class ProfilEditType extends AbstractType
                             'image/png',
                             'image/svg+xm',
                         ],
-                        'mimeTypesMessage' => 'image au format jpeg ou png uniquement',
+                        'mimeTypesMessage' => 'image au format jpeg, png ou svg uniquement',
                     ])
                 ],
 

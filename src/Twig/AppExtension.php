@@ -75,7 +75,7 @@ class AppExtension extends AbstractExtension
          * si le user est l'organisateur et etat ouvert alors peut annuler
          */
         if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() == 'OUVERT')) {
-            array_push($actions, "<a href=\"annuler\">Annuler</a>&nbsp;");
+            array_push($actions, "<a href=\"sortieCancel/".$sortie->getId()."\">Annuler</a>&nbsp;");
         }
 
 
