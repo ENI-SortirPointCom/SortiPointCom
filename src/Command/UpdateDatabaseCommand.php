@@ -2,8 +2,11 @@
 
 namespace App\Command;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
+use DateTime;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,33 +18,51 @@ class UpdateDatabaseCommand extends Command
 {
     protected static $defaultName = 'updateDatabase';
 
+    /**
+     * UpdateDatabaseCommand constructor.
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        parent::__construct();
+        $this->em = $em;
+    }
+
     protected function configure()
     {
         $this
             ->setDescription('Met le champ etat a jour');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output, EntityManager $em): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
+
         $dateDuJour = new datetime(date("Y-m-d H:i:s"));
         $io = new SymfonyStyle($input, $output);
+        $listeSortie = $this->em->getRepository(Sortie::class)->findAll();
+        $output->writeln([
+            'Mise a jour de la table etat en fonction de la date du jour',
+            '***********************************************************',
+        ]);
 
-        $listeSortie = $em->getRepository(Sortie::class)->findAll();
         foreach ($listeSortie as $sortie) {
+            $output->writeln('A ce jour : '.$dateDuJour->format('d-m-Y'). ' la sortie : '.$sortie . ' a le status : '.$sortie->getEtat()->getLibelle());
             if ($sortie->getHeureFin() < $dateDuJour) {
-                if (($sortie->getEtat()->getLibelle() == 'OUVERT') || ($sortie->getEtat()->getLibelle() == 'CLOTURE') || ($sortie->getEtat()->getLibelle() == 'PASSE')) {
-                    $sortie->setEtat($em->getRepository('App:Etat')->find(5));
+                if (($sortie->getEtat()->getLibelle() == 'OUVERT') || ($sortie->getEtat()->getLibelle() == 'CLOTURE')) {
+                    $sortie->setEtat($this->em->getRepository('App:Etat')->find(4));
+                    $output->writeln('changement du status de : '.$sortie.' vers : '.$this->em->getRepository('App:Etat')->find(4));
                 }
             }
             if (($sortie->getDateHeureDebut() > $dateDuJour) && ($sortie->getDateLimitInscription() < $dateDuJour) && ($sortie->getEtat()->getLibelle() != 'ANNULE')) {
-                $sortie->setEtat($em->getRepository('App:Etat')->find(2));
+                $sortie->setEtat($this->em->getRepository('App:Etat')->find(2));
+                $output->writeln('changement du status de : '.$sortie.' vers : '.$this->em->getRepository('App:Etat')->find(2));
             }
             if (($sortie->getDateHeureDebut() < $dateDuJour) && ($sortie->getHeureFin() > $dateDuJour) && ($sortie->getEtat()->getLibelle() != 'ANNULE')) {
-                $sortie->setEtat($em->getRepository('App:Etat')->find(3));
+                $sortie->setEtat($this->em->getRepository('App:Etat')->find(3));
+                $output->writeln('changement du status de : '.$sortie.' vers : '.$this->em->getRepository('App:Etat')->find(3));
             }
         }
-
-
+        $this->em->persist($sortie);
+        $this->em->flush();
         return 0;
     }
 }
