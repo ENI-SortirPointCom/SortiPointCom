@@ -64,18 +64,39 @@ class User implements UserInterface
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
      */
-
     private $site;
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", inversedBy="participant")
      */
     private $sorties;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $imageFilename;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
         $this->organise = new ArrayCollection();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFilename()
+    {
+        return $this->imageFilename;
+    }
+
+    /**
+     * @param mixed $imageFilename
+     */
+    public function setImageFilename($imageFilename): void
+    {
+        $this->imageFilename = $imageFilename;
+    }
+
 
 
     public function getId(): ?int

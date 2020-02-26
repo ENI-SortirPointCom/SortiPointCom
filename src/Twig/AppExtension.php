@@ -33,7 +33,6 @@ class AppExtension extends AbstractExtension
 
     public function truncnom(string $nom)
     {
-
         return $nom[0] . '.';
     }
 
@@ -45,19 +44,19 @@ class AppExtension extends AbstractExtension
          * si l'utilisateur est inscrit et que la date limite d'insciption n'est pas dépassé alors
          * afficher
          */
-        if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant()) < $sortie->getNbInscriptionMax()) {
+        if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant()) < $sortie->getNbInscriptionMax() ) {
             array_push($actions, "<a href=\"afficher\">afficher</a>&nbsp;");
         }
         /**
          * si le user est l'organisateur alors peut modifier
          */
-        if ($sortie->getOrganisateur() == $user) {
+        if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() != 'PASSE')) {
             array_push($actions, "<a href=\"modifier\">Modifier</a>&nbsp;");
         }
         /**
          * si le user est inscrit alors peut se desister
          */
-        if ($sortie->getParticipant()->contains($user)) {
+        if (($sortie->getParticipant()->contains($user))&& ($sortie->getEtat()->getLibelle() != 'PASSE')) {
             array_push($actions, "<a href=\"register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
         }elseif ($sortie->getEtat()->getLibelle() == 'PASSE') {
 
@@ -78,6 +77,7 @@ class AppExtension extends AbstractExtension
         if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() == 'OUVERT')) {
             array_push($actions, "<a href=\"annuler\">Annuler</a>&nbsp;");
         }
+
 
         return $actions;
     }
