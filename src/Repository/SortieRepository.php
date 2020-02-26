@@ -88,8 +88,9 @@ class SortieRepository extends ServiceEntityRepository
          * sorties passees
          */
         if (!is_null($search->getPasse()) && $search->getPasse()) {
-            $req->andWhere('s.heureFin > :dateLimite')->setParameter('dateLimite', $dateLimite);
-            $req->andWhere('s.dateHeureDebut < :today')->setParameter('today', $dateDuJour);
+            $req->andWhere('s.etat = :etat')->setParameter('etat',$this->getEntityManager()->getRepository(Sortie::class)->find(4));
+//            $req->andWhere('s.heureFin > :dateLimite')->setParameter('dateLimite', $dateLimite);
+//            $req->andWhere('s.dateHeureDebut < :today')->setParameter('today', $dateDuJour);
         }
 
 
