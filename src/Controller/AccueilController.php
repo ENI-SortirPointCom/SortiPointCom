@@ -59,7 +59,6 @@ class AccueilController extends AbstractController
         } else {
             $user->addSorty($sortie);
         }
-
         $em->flush();
 
         return $this->redirectToRoute('accueil');

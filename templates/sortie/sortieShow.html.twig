@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ controller_name }}{{ sortie.nom }}{% endblock %}
+
+{% block body %}
+    <div class="col-md-8 mx-auto">
+        <div class="text-center">
+            <h2 class="h2 mb-3 font-weight-normal">{{ controller_name }}{{ sortie.nom }}</h2>
+        </div>
+        <div class="form-row my-5">
+            <div class="col-md-6">
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="p-3 mb-2">Nom de la sortie</div>
+                        <div class="p-3 mb-2">Date début de la sortie</div>
+                        <div class="p-3 mb-2">Date limite d'inscription</div>
+                        <div class="p-3 mb-2">Durée de la sortie</div>
+                        <div class="p-3 mb-2">Nombre de places</div>
+                        <div class="p-3 mb-2">Descripttion de la sortie</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.nom }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.dateHeureDebut|date("Y-d-m H:m:i") }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.dateLimitInscription|date("Y-d-m H:m:i") }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie|dureeSortie }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie|nbParticipant() }}
+                            /{{ sortie.nbInscriptionMax }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.infosSortie }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="p-3 mb-2">Site lié à la sortie</div>
+                        <div class="p-3 mb-2">Lieu de la sortie</div>
+                        <div class="p-3 mb-2">Ville</div>
+                        <div class="p-3 mb-2">Code postal</div>
+                        <div class="p-3 mb-2">Rue</div>
+                        <div class="p-3 mb-2">Latitude</div>
+                        <div class="p-3 mb-2">Longitude</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.site }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.lieu }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.lieu.ville.nom }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.lieu.ville.codePostal }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.lieu.rue }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.lieu.lattitude }}</div>
+                        <div class="p-3 mb-2 bg-light text-dark">{{ sortie.lieu.longitude }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row my-auto">
+            <div class="col-md-6">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Nom</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for participant in sortie.participant %}
+                        <td>
+                            {{ participant.prenom }}
+                        </td>
+                        <td>
+                            {{ participant.nom }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <div class="mx-5">
+                    <button class=" btn btn-info btn-block send-button tx-tfm" type="submit">S'inscrire</button>
+                    <button class=" btn btn-danger btn-block send-button tx-tfm" type="submit">Se désister</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

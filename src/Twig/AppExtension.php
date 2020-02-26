@@ -20,6 +20,7 @@ class AppExtension extends AbstractExtension
             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
             new TwigFilter('inscrit', [$this, 'isInscrit']),
             new TwigFilter('nbParticipant', [$this, 'nbParticipant']),
+            new TwigFilter('dureeSortie', [$this, 'dureeSortie']),
             new TwigFilter('actions', [$this, 'actions']),
             new TwigFilter('isAdmin', [$this, 'isAdmin']),
             new TwigFilter('truncnom', [$this, 'truncnom'])
@@ -46,7 +47,7 @@ class AppExtension extends AbstractExtension
          * afficher
          */
         if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant()) < $sortie->getNbInscriptionMax()) {
-            array_push($actions, "<a href=\"afficher\">afficher</a>&nbsp;");
+            array_push($actions, "<a href=\"sortie/show/" . $sortie->getId() . "\">afficher</a>&nbsp;");
         }
         /**
          * si le user est l'organisateur alors peut modifier
@@ -59,9 +60,9 @@ class AppExtension extends AbstractExtension
          */
         if ($sortie->getParticipant()->contains($user)) {
             array_push($actions, "<a href=\"register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
-        }elseif ($sortie->getEtat()->getLibelle() == 'PASSE') {
+        } elseif ($sortie->getEtat()->getLibelle() == 'PASSE') {
 
-        }else  {
+        } else {
             array_push($actions, "<a href=\"register/" . $sortie->getId() . "\">S'inscrire</a>&nbsp;");
         }
 
@@ -89,6 +90,16 @@ class AppExtension extends AbstractExtension
     public function nbParticipant(Sortie $sortie)
     {
         return count($sortie->getParticipant());
+    }
+
+    /**
+     * @param Sortie $sortie
+     * @return  la durée d'une sortie
+     */
+    public function dureeSortie(Sortie $sortie)
+    {
+
+        return $sortie->getDateHeureDebut()->diff($sortie->getHeureFin())->format('%hh%I');
     }
 
     /**

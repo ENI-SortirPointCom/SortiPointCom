@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Entity\User;
 use App\Form\SortieCreateType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +42,22 @@ class SortieController extends AbstractController
             'controller_name' => 'Création d\'une sortie',
             'sortieCreateForm' => $form->createView(),
 
+        ]);
+    }
+
+    /**
+     * @Route("/sortie/show/{id}", requirements={"id": "\d+"}, name="sortie_show")
+     */
+    public function register(Request $request, EntityManagerInterface $em)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        /** @var Sortie $sortie */
+        $sortie = $em->getRepository('App:Sortie')->find($request->get('id'));
+        return $this->render('sortie/sortieShow.html.twig', [
+            'controller_name' => 'Sortie ',
+            'sortie' => $sortie,
         ]);
     }
 }
