@@ -101,7 +101,7 @@ class SortieController extends AbstractController
             'sortieModifyForm' => $form->createView()
         ]);
 
-
+    }
     /**
      * @Route("/sortie/show/{id}", requirements={"id": "\d+"}, name="sortie_show")
      */
@@ -140,4 +140,18 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_show', ['id' => $sortie->getId()]);
 
     }
+
+    /**
+     * @Route("/sortie/export", name="sortie_export")
+     */
+    public function export(Request $request, EntityManagerInterface $em){
+
+    }
+    /**
+     * @Route("/sortie/import", name="sortie_import")
+     */
+    public function import(Request $request, EntityManagerInterface $em){
+
+    }
+
 }

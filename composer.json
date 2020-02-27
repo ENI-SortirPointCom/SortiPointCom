@@ -5,6 +5,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
         "cron/cron-bundle": "^2.3",
         "easycorp/easyadmin-bundle": "^2.3",
         "symfony/asset": "5.0.*",
@@ -16,10 +17,9 @@
         "symfony/orm-pack": "^1.0",
         "symfony/profiler-pack": "^1.0",
         "symfony/security-bundle": "5.0.*",
-        "symfony/yaml": "5.0.*",
-        "ext-intl": "*"
+        "symfony/serializer": "5.0.*",
         "symfony/webpack-encore-bundle": "^1.7",
-
+        "symfony/yaml": "5.0.*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
