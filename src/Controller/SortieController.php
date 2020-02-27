@@ -100,7 +100,7 @@ class SortieController extends AbstractController
             'controller_name' => 'Modification de la sortie',
             'sortieModifyForm' => $form->createView()
         ]);
-
+    }
 
     /**
      * @Route("/sortie/show/{id}", requirements={"id": "\d+"}, name="sortie_show")

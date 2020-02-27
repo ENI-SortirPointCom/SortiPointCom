@@ -71,7 +71,7 @@ class User implements UserInterface
     private $sorties;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $imageFilename;
 

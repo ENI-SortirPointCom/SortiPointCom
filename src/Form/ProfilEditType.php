@@ -102,7 +102,7 @@ class ProfilEditType extends AbstractType
                 ],
 
 
-                ]);
+                ])
 
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',

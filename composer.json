@@ -17,9 +17,8 @@
         "symfony/profiler-pack": "^1.0",
         "symfony/security-bundle": "5.0.*",
         "symfony/yaml": "5.0.*",
-        "ext-intl": "*"
-        "symfony/webpack-encore-bundle": "^1.7",
-
+        "ext-intl": "*",
+        "symfony/webpack-encore-bundle": "^1.7"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
