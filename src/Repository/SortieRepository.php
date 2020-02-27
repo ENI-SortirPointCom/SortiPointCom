@@ -40,8 +40,12 @@ class SortieRepository extends ServiceEntityRepository
     public function findBySearch(User $user, Search $search)
     {
 
-        $dateDuJour = new datetime(date("Y-m-d H:i:s"));
-        $dateLimite = $dateDuJour->modify('-1 month');
+        $dateDuJour = new DateTime('now');
+        /**
+         * penser a clone car si on 'modify' l'objet datetime ($datedujour) par la suite, même si on ne l'utilise pas il sera quand même modifié
+         */
+        $dateLimite = clone $dateDuJour;
+        $dateLimite->modify('-1 month');
         $sorties = $this->getEntityManager()->getRepository(Sortie::class)->findAll();
         /**
          * si la chaine du champs search fait partie du nom de la sortie
@@ -62,21 +66,28 @@ class SortieRepository extends ServiceEntityRepository
             $req->andWhere('IDENTITY(s.site) LIKE :siteSortie')->setParameter('siteSortie', $search->getSiteSortie());
         }
         /**
-         * en fonction de la date de debut
+         * Entre datedebut et date fin si existe sinon utilise datejour
          */
-        if (!is_null($search->getDateDebut()) && !is_null($search->getDateFin())) {
 
+        if (!is_null($search->getDateDebut()) && (!is_null($search->getDateFin()))) {
             $req->andWhere('s.dateHeureDebut BETWEEN ?1 AND ?2')
                 ->setParameter(1, $search->getDateDebut())
                 ->setParameter(2, $search->getDateFin());
         }
-        /**
-         * sorties auxquelles je suis inscrit
-         */
 
-        if (!is_null($search->getEtatInscrit()) && $search->getEtatInscrit()) {
-            $req->innerJoin('s.participant', 'p', 'WITH', 'p.id = :userId')->setParameter('userId', $user->getId());
+        if (!is_null($search->getDateDebut()) && (is_null($search->getDateFin()))){
+            $req->andWhere('s.dateHeureDebut BETWEEN ?1 AND ?2')
+                ->setParameter(1, $search->getDateDebut())
+                ->setParameter(2, $dateDuJour);
         }
+            /**
+             * sorties auxquelles je suis inscrit
+             */
+
+            if (!is_null($search->getEtatInscrit()) && $search->getEtatInscrit()) {
+                $req->innerJoin('s.participant', 'p', 'WITH', 'p.id = :userId')->setParameter('userId', $user->getId());
+            }
+
         /**
          * sorties auxquelles je ne suis pas inscrit
          */
@@ -88,7 +99,7 @@ class SortieRepository extends ServiceEntityRepository
          * sorties passees
          */
         if (!is_null($search->getPasse()) && $search->getPasse()) {
-            $req->andWhere('s.etat = :etat')->setParameter('etat',$this->getEntityManager()->getRepository(Sortie::class)->find(4));
+            $req->andWhere('s.etat = :etat')->setParameter('etat', $this->getEntityManager()->getRepository(Sortie::class)->find(4));
 //            $req->andWhere('s.heureFin > :dateLimite')->setParameter('dateLimite', $dateLimite);
 //            $req->andWhere('s.dateHeureDebut < :today')->setParameter('today', $dateDuJour);
         }
@@ -96,9 +107,9 @@ class SortieRepository extends ServiceEntityRepository
 
         return $req->getQuery()->getResult();
 
-        // /**
-        //  * @return Sortie[] Returns an array of Sortie objects
-        //  */
+// /**
+//  * @return Sortie[] Returns an array of Sortie objects
+//  */
         /*
         public function findByExampleField($value)
         {
