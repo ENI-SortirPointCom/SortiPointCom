@@ -91,6 +91,7 @@ class AppExtension extends AbstractExtension
     public function nbParticipant(Sortie $sortie)
     {
         return count($sortie->getParticipant());
+
     }
 
     /**
@@ -99,7 +100,6 @@ class AppExtension extends AbstractExtension
      */
     public function dureeSortie(Sortie $sortie)
     {
-
         return $sortie->getDateHeureDebut()->diff($sortie->getHeureFin())->format('%hh%I');
     }
 
