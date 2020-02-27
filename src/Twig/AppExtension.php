@@ -47,26 +47,24 @@ class AppExtension extends AbstractExtension
          */
 
         if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant()) < $sortie->getNbInscriptionMax()) {
-            array_push($actions, "<a href=\"sortie/show/" . $sortie->getId() . "\">afficher</a>&nbsp;");
-
+            array_push($actions, "<a href=\"sortie/show/" . $sortie->getId() . "\">Afficher</a>&nbsp;");
         }
         /**
          * si le user est l'organisateur alors peut modifier
          */
         if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() != 'PASSE')) {
-            array_push($actions, "<a href=\"sortie/edit/".$sortie->getId()."\">Modifier</a>&nbsp;");
+            array_push($actions, "<a href=\"sortie/edit/" . $sortie->getId() . "\">Modifier</a>&nbsp;");
         }
         /**
          * si le user est inscrit alors peut se desister
          */
 
-        if (($sortie->getParticipant()->contains($user)) && ($sortie->getEtat()->getLibelle() != 'PASSE' ))  {
+        if (($sortie->getParticipant()->contains($user)) && ($sortie->getEtat()->getLibelle() != 'PASSE')) {
             array_push($actions, "<a href=\"acceuil/register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
-        }elseif ($sortie->getEtat()->getLibelle() == 'PASSE' || ($sortie->getEtat()->getLibelle() == 'ANNULE')) {
+        } elseif ($sortie->getEtat()->getLibelle() == 'PASSE' || ($sortie->getEtat()->getLibelle() == 'ANNULE')) {
 
-        }else {
+        } else {
             array_push($actions, "<a href=\"acceuil/register/" . $sortie->getId() . "\">S'inscrire</a>&nbsp;");
-
         }
 
         /**
@@ -79,14 +77,14 @@ class AppExtension extends AbstractExtension
          * si le user est l'organisateur et etat ouvert alors peut annuler
          */
         if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() == 'OUVERT')) {
-            array_push($actions, "<a href=\"sortie/cancel/".$sortie->getId()."\">Annuler</a>&nbsp;");
+            array_push($actions, "<a href=\"sortie/cancel/" . $sortie->getId() . "\">Annuler</a>&nbsp;");
         }
         return $actions;
     }
 
     /**
      * @param Sortie $sortie
-     * @return  le nombre de participants à une sortie
+     * @return  'le nombre de participants à une sortie'
      */
     public function nbParticipant(Sortie $sortie)
     {
@@ -95,18 +93,17 @@ class AppExtension extends AbstractExtension
 
     /**
      * @param Sortie $sortie
-     * @return  la durée d'une sortie
+     * @return  'la durée d'une sortie'
      */
     public function dureeSortie(Sortie $sortie)
     {
-
         return $sortie->getDateHeureDebut()->diff($sortie->getHeureFin())->format('%hh%I');
     }
 
     /**
      * @param Sortie $sortie
      * @param User $user
-     * @return si l'utilisateur courant est present à la sortie
+     * @return 'si l'utilisateur courant est present à la sortie'
      */
     public function isInscrit(Sortie $sortie, User $user)
     {
