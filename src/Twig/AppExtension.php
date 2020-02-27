@@ -51,7 +51,7 @@ class AppExtension extends AbstractExtension
          * si le user est l'organisateur alors peut modifier
          */
         if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() != 'PASSE')) {
-            array_push($actions, "<a href=\"modifier\">Modifier</a>&nbsp;");
+            array_push($actions, "<a href=\"sortie/modify/".$sortie->getId()."\">Modifier</a>&nbsp;");
         }
         /**
          * si le user est inscrit alors peut se desister

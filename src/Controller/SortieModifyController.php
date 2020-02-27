@@ -31,8 +31,9 @@ class SortieModifyController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('accueil');
         }
-        return $this->render('sortie_modify/index.html.twig', [
+        return $this->render('sortie/sortieModify.html.twig', [
             'controller_name' => 'Modification de la sortie',
+            'sortieModifyForm' => $form->createView()
         ]);
     }
 }
