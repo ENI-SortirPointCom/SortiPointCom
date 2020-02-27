@@ -57,7 +57,7 @@ class SortieRepository extends ServiceEntityRepository
          * si l'utilisateur est l'organisateur
          */
         if (!is_null($search->getOrganisateur()) && $search->getOrganisateur()) {
-            $req->andwhere('IDENTITY(s.organisateur) LIKE :organisateur')->setParameter('organisateur', $search->getOrganisateur());
+            $req->andwhere('IDENTITY(s.organisateur) LIKE :organisateur')->setParameter('organisateur', $user);
         }
         /**
          * En fonction du site
@@ -85,23 +85,20 @@ class SortieRepository extends ServiceEntityRepository
              */
 
             if (!is_null($search->getEtatInscrit()) && $search->getEtatInscrit()) {
+
                 $req->innerJoin('s.participant', 'p', 'WITH', 'p.id = :userId')->setParameter('userId', $user->getId());
             }
-
         /**
          * sorties auxquelles je ne suis pas inscrit
          */
-
         if (!is_null($search->getEtatInscrit()) && !$search->getEtatInscrit()) {
-            $req->innerJoin('s.participant', 'p', 'WITH', 'p.id != :userId')->setParameter('userId', $user->getId());
+            $req->andWhere(':user NOT Member Of s.participant')->setParameter('user', $user->getId());
         }
         /**
          * sorties passees
          */
         if (!is_null($search->getPasse()) && $search->getPasse()) {
             $req->andWhere('s.etat = :etat')->setParameter('etat', $this->getEntityManager()->getRepository(Sortie::class)->find(4));
-//            $req->andWhere('s.heureFin > :dateLimite')->setParameter('dateLimite', $dateLimite);
-//            $req->andWhere('s.dateHeureDebut < :today')->setParameter('today', $dateDuJour);
         }
 
 
