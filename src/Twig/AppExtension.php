@@ -112,10 +112,10 @@ class AppExtension extends AbstractExtension
         if ($user) {
             foreach ($sortie->getParticipant() as $participant) {
                 if ($participant == $user) {
-                    return "<span class=\"badge badge-pill badge-success\">Inscris</span>";
+                    return true;
                 }
             }
-            return "<span class=\"badge badge-pill badge-danger\">Pas Inscris</span>";;
+            return false;
         }
     }
 

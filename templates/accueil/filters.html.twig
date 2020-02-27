@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    {{ encore_entry_link_tags('global') }}
+    {{ encore_entry_link_tags('app') }}
+
+    <title>{% block title %}{{ controller_name }}{% endblock %}</title>
+
+    {% block stylesheets %}
+        <!--insert jquery with cdn, webpack having troubles -->
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
+        {#                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"#}
+        {#                      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"#}
+        {#                      crossorigin="anonymous">#}
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+                integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+                crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+              integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+              crossorigin="anonymous">
+    {% endblock %}
+</head>
+<div class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand">Sortir.com</a>
+        {% if app.user %}
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{ path('profil_edit') }}>Profil utilisateur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{ path('sortie_create') }}>Créer une sortie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{ path('ville_create') }}>Créer une ville</a>
+                </li>
+                <li class="nav-item">
+                    {% if  app.user|isAdmin %}
+                        <a class="nav-link " href="{{ path('easyadmin') }}">Administration</a>
+                    {% endif %}
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><a
+                            href="{{ path('app_logout') }}">Deconnexion</a>
+                </button>
+                {% else %}
+                    {#                <button class="btn btn-outline-primary my-2 my-sm-0 " disabled type="submit">Deconnexion</button>#}
+                {% endif %}
+            </form>
+        </div>
+    </nav>
+
+    <div class="d-flex align-items-end flex-column bg-white">
+        <div class="p-2"><b>Date du jour : {{ "now"|date("d/m/Y") }}</b></div>
+        {% if app.user %}
+            <div class="p-2"><b>Participant : {{ app.user.prenom }} {{ app.user.nom|truncnom }} </b></div>
+        {% endif %}
+    </div>
+
+    {% block body %}
+    <div class="bg-white">
+        {% form_theme sortieFilterForm 'bootstrap_4_horizontal_layout.html.twig' %}
+        <div class="container">
+            {{ form_start((sortieFilterForm)) }}
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8">
+                        {{ form_row(sortieFilterForm.nomSearch) }}
+                        {{ form_row(sortieFilterForm.siteSortie) }}
+                        {{ form_row(sortieFilterForm.dateDebut) }}
+                        {{ form_row(sortieFilterForm.dateFin) }}
+                    </div>
+                    <div class="col-md-4 ">
+                        {{ form_row(sortieFilterForm.organisateur) }}
+                        {{ form_row(sortieFilterForm.passe) }}
+                        <div class="form-group d-flex justify-content-end">
+                            {{ form_label(sortieFilterForm.etatInscrit) }}
+                            {{ form_widget(sortieFilterForm.etatInscrit) }}
+                        </div>
+                        {{ form_row(sortieFilterForm.submit) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_end(sortieFilterForm) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+</html>

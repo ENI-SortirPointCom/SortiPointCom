@@ -26,9 +26,21 @@
                 </div>
             </div>
             <div class="form-group">
-                {{ form_row(lieuCreateForm.ville) }}
+                <div class="form-row">
+                    <div class="col-md-8">
+                        {{ form_row(lieuCreateForm.ville) }}
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><br>
+                            <a class="btn btn-info btn-block send-button tx-tfm" href="{{ path('ville_create') }}">Ajouter
+                                une ville</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button class=" btn btn-success btn-block send-button tx-tfm" type="submit">Valider</button>
+            <div class="form-group">
+                {{ form_row(lieuCreateForm.submit) }}
+            </div>
             {{ form_end(lieuCreateForm) }}
         </div>
     </div>

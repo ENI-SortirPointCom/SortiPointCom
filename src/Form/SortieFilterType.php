@@ -47,7 +47,7 @@ class SortieFilterType extends AbstractType
             ])
             ->add('siteSortie', EntityType::class, [
                 'class' => Site::class,
-                'placeholder'=> '--Site--',
+                'placeholder' => '--Site--',
                 'required' => false
             ])
             ->add('nomSearch', TextType::class, [
@@ -67,8 +67,12 @@ class SortieFilterType extends AbstractType
                 'required' => false
 
             ])
-            ->add('Rechercher', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-info btn-block send-button tx-tfm']
+            ->add('submit', SubmitType::class, [
+                'label' => 'Rechercher',
+                'attr' => [
+                    'class' => 'btn btn-info btn-block send-button tx-tfm',
+                    'type' => 'submit',
+                ]
             ]);
     }
 

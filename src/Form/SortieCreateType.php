@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -51,11 +52,12 @@ class SortieCreateType extends AbstractType
                 'label' => 'Nombre maximum de participants',
                 'attr' => [
                     'class' => 'form-control',
-                    'min'=> 1,
+                    'min' => 1,
                 ],
             ])
             ->add('infosSortie', TextareaType::class, [
                 'label' => 'Informations sur la sortie',
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Quelques informations à propos de la sortie ...',
                     'class' => 'form-control',
@@ -77,6 +79,13 @@ class SortieCreateType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-check',
+                ],
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Valider',
+                'attr' => [
+                    'class' => 'btn btn-success btn-block send-button tx-tfm',
+                    'type' => 'submit',
                 ],
             ]);
     }
