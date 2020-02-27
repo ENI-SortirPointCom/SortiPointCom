@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -81,6 +82,7 @@ class ProfilEditType extends AbstractType
                     ]),
                 ],
             ])
+
             ->add('image', FileType::class, [
                 'label' => 'Choisir votre Avatar   ',
                 'mapped' => false,
@@ -101,6 +103,15 @@ class ProfilEditType extends AbstractType
 
 
                 ]);
+
+            ->add('submit', SubmitType::class, [
+                'label' => 'Valider',
+                'attr' => [
+                    'class' => 'btn btn-success btn-block send-button tx-tfm',
+                    'type' => 'submit',
+                ],
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

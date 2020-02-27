@@ -20,6 +20,7 @@ class AppExtension extends AbstractExtension
             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
             new TwigFilter('inscrit', [$this, 'isInscrit']),
             new TwigFilter('nbParticipant', [$this, 'nbParticipant']),
+            new TwigFilter('dureeSortie', [$this, 'dureeSortie']),
             new TwigFilter('actions', [$this, 'actions']),
             new TwigFilter('isAdmin', [$this, 'isAdmin']),
             new TwigFilter('truncnom', [$this, 'truncnom'])
@@ -44,8 +45,10 @@ class AppExtension extends AbstractExtension
          * si l'utilisateur est inscrit et que la date limite d'insciption n'est pas dépassé alors
          * afficher
          */
-        if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant()) < $sortie->getNbInscriptionMax() ) {
-            array_push($actions, "<a href=\"afficher\">afficher</a>&nbsp;");
+
+        if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant()) < $sortie->getNbInscriptionMax()) {
+            array_push($actions, "<a href=\"sortie/show/" . $sortie->getId() . "\">afficher</a>&nbsp;");
+
         }
         /**
          * si le user est l'organisateur alors peut modifier
@@ -56,12 +59,14 @@ class AppExtension extends AbstractExtension
         /**
          * si le user est inscrit alors peut se desister
          */
+
         if (($sortie->getParticipant()->contains($user)) && ($sortie->getEtat()->getLibelle() != 'PASSE' ))  {
             array_push($actions, "<a href=\"acceuil/register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
         }elseif ($sortie->getEtat()->getLibelle() == 'PASSE' || ($sortie->getEtat()->getLibelle() == 'ANNULE')) {
 
         }else {
             array_push($actions, "<a href=\"acceuil/register/" . $sortie->getId() . "\">S'inscrire</a>&nbsp;");
+
         }
 
         /**
@@ -90,6 +95,16 @@ class AppExtension extends AbstractExtension
 
     /**
      * @param Sortie $sortie
+     * @return  la durée d'une sortie
+     */
+    public function dureeSortie(Sortie $sortie)
+    {
+
+        return $sortie->getDateHeureDebut()->diff($sortie->getHeureFin())->format('%hh%I');
+    }
+
+    /**
+     * @param Sortie $sortie
      * @param User $user
      * @return si l'utilisateur courant est present à la sortie
      */
@@ -98,10 +113,10 @@ class AppExtension extends AbstractExtension
         if ($user) {
             foreach ($sortie->getParticipant() as $participant) {
                 if ($participant == $user) {
-                    return "<span class=\"badge badge-pill badge-success\">Inscris</span>";
+                    return true;
                 }
             }
-            return "<span class=\"badge badge-pill badge-danger\">Pas Inscris</span>";;
+            return false;
         }
     }
 

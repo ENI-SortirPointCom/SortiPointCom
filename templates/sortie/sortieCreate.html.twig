@@ -51,7 +51,9 @@
             <div class="form-group">
                 {{ form_row(sortieCreateForm.participate) }}
             </div>
-            <button class=" btn btn-success btn-block send-button tx-tfm" type="submit">Valider</button>
+            <div class="form-group">
+                {{ form_row(sortieCreateForm.submit) }}
+            </div>
             {{ form_end(sortieCreateForm) }}
         </div>
     </div>

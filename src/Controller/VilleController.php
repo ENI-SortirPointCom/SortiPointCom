@@ -2,33 +2,33 @@
 
 namespace App\Controller;
 
-use App\Entity\Lieu;
-use App\Form\LieuCreateType;
+use App\Entity\Ville;
+use App\Form\VilleCreateType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class LieuController extends AbstractController
+class VilleController extends AbstractController
 {
     /**
-     * @Route("/lieu/create", name="lieu_create")
+     * @Route("/ville/create", name="ville_create")
      */
-    public function LieuCreate(Request $request): Response
+    public function villeCreate(Request $request): Response
     {
-        $lieu = new Lieu();
+        $ville = new Ville();
 
-        $form = $this->createForm(LieuCreateType::class, $lieu);
+        $form = $this->createForm(VilleCreateType::class, $ville);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($lieu);
+            $entityManager->persist($ville);
             $entityManager->flush();
             return $this->redirectToRoute('home');
         }
-        return $this->render('lieu/lieuCreate.html.twig', [
-            'controller_name' => 'Création d\'un lieu',
-            'lieuCreateForm' => $form->createView(),
+        return $this->render('ville/villeCreate.html.twig', [
+            'controller_name' => 'Création d\'une ville',
+            'villeCreateForm' => $form->createView(),
 
         ]);
     }
