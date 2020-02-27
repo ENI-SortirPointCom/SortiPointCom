@@ -70,15 +70,12 @@ class AppExtension extends AbstractExtension
         if ($sortie->getOrganisateur() == $user && $sortie->getEtat() == 'EN CREATION') {
             array_push($actions, "<a href=\"publier\">publier</a>&nbsp;");
         }
-
         /**
          * si le user est l'organisateur et etat ouvert alors peut annuler
          */
         if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() == 'OUVERT')) {
-            array_push($actions, "<a href=\"sortieCancel/".$sortie->getId()."\">Annuler</a>&nbsp;");
+            array_push($actions, "<a href=\"sortie/cancel/".$sortie->getId()."\">Annuler</a>&nbsp;");
         }
-
-
         return $actions;
     }
 

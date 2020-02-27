@@ -25,6 +25,7 @@ class SortieController extends AbstractController
         $form = $this->createForm(SortieCreateType::class, $sortie);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $sortie->setOrganisateur($this->getUser());

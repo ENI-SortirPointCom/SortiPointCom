@@ -7,6 +7,7 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
 use App\Form\ModalMotifFormType;
+use App\Form\SortieCancelType;
 use App\Form\SortieFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,22 +47,30 @@ class AccueilController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/sortieCancel/{id}", requirements={"id": "\d+"}, name="accueil_cancel")
-     */
-    public function cancel(Request $request, EntityManagerInterface $em){
-
-        /** @var User $user */
-        $user = $this->getUser();
-
-        /** @var Sortie $sortie */
-        $sortie = $em->getRepository('App:Sortie')->find($request->get('id'));
-
-        $sortie->setEtat($em->getRepository('App:Etat')->find(5));
-        $em->flush();
-        return $this->redirectToRoute('accueil');
-
-    }
+//    /**
+//     * @Route("/sortieCancel/{id}", requirements={"id": "\d+"}, name="accueil_cancel")
+//     */
+//    public function cancel(Request $request, EntityManagerInterface $em){
+//
+//        /** @var Sortie $sortie */
+//        $sortie = $em->getRepository('App:Sortie')->find($request->get('id'));
+//
+//
+//        $sortie->setInfosSortie('');
+//
+//        $form = $this->createForm(SortieCancelType::class,$sortie);
+//
+//        return $this->render('sortie/sortieCancel.html.twig', [
+//            "sortie" => $sortie,
+//            "controller_name" => 'Annuler la sortie',
+//            'sortieCancel' => $form->createView(),
+//            /**
+//             * pour passer en parametre de l'extension twig pesonnalisée
+//             */
+//            'user' => $this->getUser()
+//        ]);
+//
+//    }
 
     /**
      * @Route("/register/{id}", requirements={"id": "\d+"}, name="accueil_register")
