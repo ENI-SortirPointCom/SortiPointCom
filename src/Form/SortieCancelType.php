@@ -16,7 +16,7 @@ class SortieCancelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id',IntegerType::class)
+
             ->add('nom',TextType::class,[
                 'disabled' => 'true'
             ])

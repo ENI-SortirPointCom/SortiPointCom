@@ -50,7 +50,7 @@
                     <td>{{ sortie.dateHeureDebut | date("Y-d-m H:m:i") }}</td>
                     <td>{{ sortie.dateLimitInscription | date("Y-d-m") }}</td>
                     <td>
-                        <a href="{{ path('profils_show',{ id:sortie.id} ) }}">{{ sortie|nbParticipant() }}</a>/{{ sortie.nbInscriptionMax }}
+                        <a href="{{ path('profils_show',{ id:sortie.id}) }}">{{ sortie|nbParticipant() }}</a>/{{ sortie.nbInscriptionMax }}
                     </td>
                     <td>{{ sortie.etat|default('undefinned') }}</td>
                     <td>{{ sortie|inscrit(user)|raw }}</td>
@@ -61,16 +61,6 @@
             </tbody>
         </table>
     </div>
-
-{#        {{ form_start(modalMotifForm) }}#}
-{#        <div class="form-group">#}
-{#            {{ form_row(modalMotifForm) }}#}
-{#        </div>#}
-{#        {{ form_end(modalMotifForm) }}#}
-
 {% endblock %}
-
-
-
 {% block javascripts %}
 {% endblock %}

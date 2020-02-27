@@ -21,18 +21,16 @@ class SortieCancelController extends AbstractController
         $sortie = $em->getRepository(Sortie::class)->find($request->get('id'));
         $sortie->setInfosSortie('');
         $form = $this->createForm(SortieCancelType::class, $sortie);
-
         /**
          * si validé on affecte le motif et on set le status a ANNULE
          */
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!is_null($sortie->setInfosSortie($form->get('infosSortie')->getData()))) {
                 $sortie->setEtat($em->getRepository('App:Etat')->find(5));
                 $sortie->setInfosSortie($form->get('infosSortie')->getData());
-            }
             $em->persist($sortie);
             $em->flush();
+
             return $this->redirectToRoute('accueil');
         }
         return $this->render('sortie/sortieCancel.html.twig', [

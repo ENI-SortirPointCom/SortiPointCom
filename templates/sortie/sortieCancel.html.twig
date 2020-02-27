@@ -22,7 +22,7 @@
         </div>
         <div class="form-group text-right">
             <button class=" btn btn-danger  btn-outline send-button tx-tfm" type="submit">Annuler</button>
-            <button class=" btn btn-success btn-outline send-button tx-tfm" type="submit"><a href="{{ path('sortie_cancel',{id:sortieCancel.id}) }}">Valider</a></button>
+            <button class=" btn btn-success btn-outline send-button tx-tfm" type="submit"><a href="{{ path('sortie_cancel',{'id':sortie.id}) }}">Valider</a></button>
         </div>
         {{ form_end(sortieCancel) }}
     </div>
