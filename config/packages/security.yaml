@@ -45,3 +45,4 @@ security:
     - { path: ^/profil, roles: ROLE_USER }
     - { path: ^/sortie, roles: ROLE_USER }
     - { path: ^/lieu, roles: ROLE_USER }
+    - { path: ^/accueil, roles: ROLE_USER}

@@ -6,6 +6,8 @@ use App\Entity\Search;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\ModalMotifFormType;
+use App\Form\SortieCancelType;
 use App\Form\SortieFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,10 +22,12 @@ class AccueilController extends AbstractController
     public function index(Request $request, EntityManagerInterface $em)
     {
         $sites = $em->getRepository(Site::class)->findAll();
+
         $search = new Search();
+
+
         $form = $this->createForm(SortieFilterType::class, $search);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $sorties = $em->getRepository(Sortie::class)->findBySearch($this->getUser(), $search);
@@ -45,7 +49,7 @@ class AccueilController extends AbstractController
 
 
     /**
-     * @Route("/register/{id}", requirements={"id": "\d+"}, name="accueil_register")
+     * @Route("/acceuil/register/{id}", requirements={"id": "\d+"}, name="accueil_register")
      */
     public function register(Request $request, EntityManagerInterface $em)
     {

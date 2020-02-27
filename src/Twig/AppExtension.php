@@ -34,7 +34,6 @@ class AppExtension extends AbstractExtension
 
     public function truncnom(string $nom)
     {
-
         return $nom[0] . '.';
     }
 
@@ -46,24 +45,28 @@ class AppExtension extends AbstractExtension
          * si l'utilisateur est inscrit et que la date limite d'insciption n'est pas dépassé alors
          * afficher
          */
+
         if ($datetDuJour < $sortie->getDateLimitInscription() && count($sortie->getParticipant()) < $sortie->getNbInscriptionMax()) {
             array_push($actions, "<a href=\"sortie/show/" . $sortie->getId() . "\">afficher</a>&nbsp;");
+
         }
         /**
          * si le user est l'organisateur alors peut modifier
          */
-        if ($sortie->getOrganisateur() == $user) {
-            array_push($actions, "<a href=\"modifier\">Modifier</a>&nbsp;");
+        if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() != 'PASSE')) {
+            array_push($actions, "<a href=\"sortie/edit/".$sortie->getId()."\">Modifier</a>&nbsp;");
         }
         /**
          * si le user est inscrit alors peut se desister
          */
-        if ($sortie->getParticipant()->contains($user)) {
-            array_push($actions, "<a href=\"register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
-        } elseif ($sortie->getEtat()->getLibelle() == 'PASSE') {
 
-        } else {
-            array_push($actions, "<a href=\"register/" . $sortie->getId() . "\">S'inscrire</a>&nbsp;");
+        if (($sortie->getParticipant()->contains($user)) && ($sortie->getEtat()->getLibelle() != 'PASSE' ))  {
+            array_push($actions, "<a href=\"acceuil/register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
+        }elseif ($sortie->getEtat()->getLibelle() == 'PASSE' || ($sortie->getEtat()->getLibelle() == 'ANNULE')) {
+
+        }else {
+            array_push($actions, "<a href=\"acceuil/register/" . $sortie->getId() . "\">S'inscrire</a>&nbsp;");
+
         }
 
         /**
@@ -72,14 +75,12 @@ class AppExtension extends AbstractExtension
         if ($sortie->getOrganisateur() == $user && $sortie->getEtat() == 'EN CREATION') {
             array_push($actions, "<a href=\"publier\">publier</a>&nbsp;");
         }
-
         /**
          * si le user est l'organisateur et etat ouvert alors peut annuler
          */
         if (($sortie->getOrganisateur() == $user) && ($sortie->getEtat()->getLibelle() == 'OUVERT')) {
-            array_push($actions, "<a href=\"annuler\">Annuler</a>&nbsp;");
+            array_push($actions, "<a href=\"sortie/cancel/".$sortie->getId()."\">Annuler</a>&nbsp;");
         }
-
         return $actions;
     }
 

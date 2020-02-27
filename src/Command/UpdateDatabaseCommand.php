@@ -44,6 +44,16 @@ class UpdateDatabaseCommand extends Command
             '***********************************************************',
         ]);
 
+        /**
+         * pour toutes les sorties si le status est :
+         *  si la date de fin est inferieur a la date du jour
+         *  - OUVERT ou CLOTURE => PASSE
+         *  - ANNULE => CLOTURE
+         *  si datedebut superieur a date du jour et datelimite < datejour et n'est pas ANNULE
+         *  - CLOTURE
+         * si datedebut < date du jour et date de fin > date du jour et n'est pas ANNULE
+         *  - EN COURS
+         */
         foreach ($listeSortie as $sortie) {
             $output->writeln('A ce jour : '.$dateDuJour->format('d-m-Y'). ' la sortie : '.$sortie . ' a le status : '.$sortie->getEtat()->getLibelle());
             if ($sortie->getHeureFin() < $dateDuJour) {

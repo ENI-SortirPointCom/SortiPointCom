@@ -7,12 +7,14 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 
 class ProfilEditType extends AbstractType
@@ -80,6 +82,28 @@ class ProfilEditType extends AbstractType
                     ]),
                 ],
             ])
+
+            ->add('image', FileType::class, [
+                'label' => 'Choisir votre Avatar   ',
+                'mapped' => false,
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/svg+xm',
+                        ],
+                        'mimeTypesMessage' => 'image au format jpeg, png ou svg uniquement',
+                    ])
+                ],
+
+
+                ]);
+
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [
@@ -87,6 +111,7 @@ class ProfilEditType extends AbstractType
                     'type' => 'submit',
                 ],
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

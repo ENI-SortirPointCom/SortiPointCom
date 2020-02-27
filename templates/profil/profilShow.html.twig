@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ controller_name }}{{ sortie.nom }}{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        <h2 class="h2 mb-3 font-weight-normal">{{ controller_name }} {{ sortie.nom }}</h2>
+    </div>
+    {% for participant in participants %}
+        <div class="container">
+            <div class="card-columns">
+                <div class="card" style="width:200px">
+                    <img class="card-img-top" src="{{ asset('uploads/images/' ~ participant.imageFilename) }}"
+                         alt="Card image">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">{{ participant.nom }}</h4>
+                        <p class="card-text">{{ participant.prenom }}</p>
+                        <p class="card-text">{{ participant.email }}</p>
+                        <p class="card-text">{{ participant.site }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
