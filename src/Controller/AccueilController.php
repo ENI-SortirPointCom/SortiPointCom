@@ -49,7 +49,7 @@ class AccueilController extends AbstractController
 
 
     /**
-     * @Route("/acceuil/register/{id}", requirements={"id": "\d+"}, name="accueil_register")
+     * @Route("/accueil/register/{id}", requirements={"id": "\d+"}, name="accueil_register")
      */
     public function register(Request $request, EntityManagerInterface $em)
     {
