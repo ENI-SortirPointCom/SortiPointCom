@@ -61,7 +61,7 @@ class SortieController extends AbstractController
         $user = $this->getUser();
         $organiteur = $sortie->getOrganisateur();
         if ($user != $organiteur) {
-            return $this->redirectToRoute('accueil');
+            $this->createAccessDeniedException();
         }
 
         $sortie->setInfosSortie('');
@@ -100,7 +100,7 @@ class SortieController extends AbstractController
         $user = $this->getUser();
         $organiteur = $sortie->getOrganisateur();
         if ($user != $organiteur) {
-            return $this->redirectToRoute('accueil');
+            throw $this->createAccessDeniedException();
         }
 
         $sortie->setInfosSortie('');
