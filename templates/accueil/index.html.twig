@@ -1,0 +1,48 @@
+{% include 'accueil/filters.html.twig' %}
+
+{% block body %}
+    {% set nowDate = date('now') %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-fixed table-fixed-md table-striped table-hover ">
+                    <thead class="thead-light">
+                    <tr class="text-center">
+                        <th scope="col" class="col-1">Nom de la sortie</th>
+                        <th scope="col" class="col-2">Date de la sortie</th>
+                        <th scope="col" class="col-2">Clôture</th>
+                        <th scope="col" class="col-1">nb Inscrits/places</th>
+                        <th scope="col" class="col-1">Etat</th>
+                        <th scope="col" class="col-1">Status</th>
+                        <th scope="col" class="col-1">Organisateur</th>
+                        <th scope="col" class="col-3">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sortie in sorties %}
+                        <tr class="text-center">
+                            <th scope="row" class="col-1">{{ sortie.nom }}</th>
+                            <td class="col-2">{{ sortie.dateHeureDebut | date("Y-d-m H:m:i") }}</td>
+                            <td class="col-2">{{ sortie.dateLimitInscription | date("Y-d-m") }}</td>
+                            <td class="col-1"><a href="{{ path('profils_show',{'id':sortie.id}) }}">{{ sortie|nbParticipant() }}</a>/{{ sortie.nbInscriptionMax }}</td>
+                            <td class="col-1">{{ sortie.etat|default('undefinned') }}</td>
+                            <td class="col-1">
+                                {% if sortie|inscrit(user) %}
+                                    <span class="badge badge-pill badge-success">Inscris</span>
+                                {% else %}
+                                    <span class="badge badge-pill badge-danger">Pas Inscris</span>
+                                {% endif %}
+                            </td>
+                            <td class="col-1">{{ sortie.organisateur }}</td>
+                            <td class="col-3">{{ sortie|actions(user)|join|raw }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="text-center ">
+                <h2 class="h2 mb-3 font-weight-normal">{{ controller_name }}</h2>
+            </div>
+            {{ form_start(sortieModifyForm) }}
+            <div class="form-group">
+                {{ form_row(sortieModifyForm.nom) }}
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8">
+                        {{ form_row(sortieModifyForm.lieu) }}
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><br>
+                            <a class="btn btn-info btn-block send-button tx-tfm" href="{{ path('lieu_create') }}">Ajouter
+                                un lieu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        {{ form_row(sortieModifyForm.dateHeureDebut) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(sortieModifyForm.heureFin) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        {{ form_row(sortieModifyForm.dateLimitInscription) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(sortieModifyForm.nbInscriptionMax) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_row(sortieModifyForm.infosSortie) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(sortieModifyForm.participate) }}
+            </div>
+            <button class=" btn btn-success btn-block send-button tx-tfm" type="submit">Valider</button>
+            {{ form_end(sortieModifyForm) }}
+        </div>
+    </div>
+{% endblock %}
