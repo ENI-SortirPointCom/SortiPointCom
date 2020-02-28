@@ -60,11 +60,11 @@ class AppExtension extends AbstractExtension
          */
 
         if (($sortie->getParticipant()->contains($user)) && ($sortie->getEtat()->getLibelle() != 'PASSE')) {
-            array_push($actions, "<a href=\"acceuil/register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
-        } elseif ($sortie->getEtat()->getLibelle() == 'PASSE' || ($sortie->getEtat()->getLibelle() == 'ANNULE')) {
-
+            array_push($actions, "<a href=\"accueil/register/" . $sortie->getId() . "\">Se désister</a>&nbsp;");
+        } elseif ($sortie->getEtat()->getLibelle() == 'PASSE' || ($sortie->getEtat()->getLibelle() == 'ANNULE')  || ($sortie->getParticipant()->count())+1 > $sortie->getNbInscriptionMax() ) {
+            array_push($actions, "ND");
         } else {
-            array_push($actions, "<a href=\"acceuil/register/" . $sortie->getId() . "\">S'inscrire</a>&nbsp;");
+            array_push($actions, "<a href=\"accueil/register/" . $sortie->getId() . "\">S'inscrire</a>&nbsp;");
         }
 
         /**
