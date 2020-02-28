@@ -24,7 +24,7 @@
                             <th scope="row" class="col-1">{{ sortie.nom }}</th>
                             <td class="col-2">{{ sortie.dateHeureDebut | date("Y-d-m H:m:i") }}</td>
                             <td class="col-2">{{ sortie.dateLimitInscription | date("Y-d-m") }}</td>
-                            <td class="col-1">{{ sortie|nbParticipant() }}/{{ sortie.nbInscriptionMax }}</td>
+                            <td class="col-1"><a href="{{ path('profils_show',{'id':sortie.id}) }}">{{ sortie|nbParticipant() }}</a> /{{ sortie.nbInscriptionMax }}</td>
                             <td class="col-1">{{ sortie.etat|default('undefinned') }}</td>
                             <td class="col-1">
                                 {% if sortie|inscrit(user) %}
