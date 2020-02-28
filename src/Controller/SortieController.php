@@ -149,6 +149,9 @@ class SortieController extends AbstractController
 
         /** @var Sortie $sortie */
         $sortie = $em->getRepository('App:Sortie')->find($request->get('id'));
+        if ($sortie->getEtat()->getLibelle() == 'ANNULE' || $sortie->getEtat()->getLibelle() == 'PASSE' || $sortie->getNbInscriptionMax() == $sortie->getParticipant()->count()) {
+            return $this->redirectToRoute('accueil');
+        }
         if ($user->getSorties()->contains($sortie)) {
             $user->removeSorty($sortie);
         } else {

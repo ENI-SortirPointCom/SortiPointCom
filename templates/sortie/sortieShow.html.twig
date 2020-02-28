@@ -56,34 +56,35 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover table-fixed table-fixed-sm">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="col-6">Prénom</th>
-                            <th scope="col" class="col-6">Nom</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            {% for participant in sortie.participant %}
-                            <td class="col-6">
-                                {{ participant.prenom }}
-                            </td>
-                            <td class="col-6">
-                                {{ participant.nom }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    </div></div>
+                        <table class="table table-striped table-bordered table-hover table-fixed table-fixed-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="col-6">Prénom</th>
+                                <th scope="col" class="col-6">Nom</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                {% for participant in sortie.participant %}
+                                <td class="col-6">
+                                    {{ participant.prenom }}
+                                </td>
+                                <td class="col-6">
+                                    {{ participant.nom }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="mx-5">
                     {% if sortie|inscrit(user) %}
                         <a class=" btn btn-danger btn-block send-button tx-tfm"
                            href="{{ path('sortie_register',{id : sortie.id}) }}">Se désister</a>
-                    {% else %}
+                    {% elseif sortie|nbParticipant < sortie|nbParticipantTotal %}
                         <a class=" btn btn-info btn-block send-button tx-tfm"
                            href="{{ path('sortie_register',{id : sortie.id}) }}">S'inscrire</a>
                     {% endif %}
