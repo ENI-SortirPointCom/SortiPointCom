@@ -20,6 +20,7 @@ class AppExtension extends AbstractExtension
             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
             new TwigFilter('inscrit', [$this, 'isInscrit']),
             new TwigFilter('nbParticipant', [$this, 'nbParticipant']),
+            new TwigFilter('nbParticipantTotal', [$this, 'nbParticipantTotal']),
             new TwigFilter('dureeSortie', [$this, 'dureeSortie']),
             new TwigFilter('actions', [$this, 'actions']),
             new TwigFilter('isAdmin', [$this, 'isAdmin']),
@@ -89,6 +90,15 @@ class AppExtension extends AbstractExtension
     public function nbParticipant(Sortie $sortie)
     {
         return count($sortie->getParticipant());
+    }
+
+    /**
+     * @param Sortie $sortie
+     * @return  'le nombre de participants à une sortie'
+     */
+    public function nbParticipantTotal(Sortie $sortie)
+    {
+        return $sortie->getNbInscriptionMax();
     }
 
     /**
