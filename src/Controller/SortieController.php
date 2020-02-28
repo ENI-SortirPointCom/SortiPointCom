@@ -57,6 +57,13 @@ class SortieController extends AbstractController
     {
         /** @var Sortie $sortie */
         $sortie = $em->getRepository(Sortie::class)->find($request->get('id'));
+
+        $user = $this->getUser();
+        $organiteur = $sortie->getOrganisateur();
+        if ($user != $organiteur) {
+            return $this->redirectToRoute('accueil');
+        }
+
         $sortie->setInfosSortie('');
         $form = $this->createForm(SortieCancelType::class, $sortie);
         /**
@@ -77,13 +84,25 @@ class SortieController extends AbstractController
             'sortieCancel' => $form->createView()
         ]);
     }
+
     /**
      * @Route("/sortie/edit/{id}", requirements={"id": "\d+"}, name="sortie_edit")
      */
     public function update(Request $request, EntityManagerInterface $em)
     {
+
+
         /** @var Sortie $sortie */
+        /** @var User $user */
+        /** @var $organiteur */
         $sortie = $em->getRepository(Sortie::class)->find($request->get('id'));
+
+        $user = $this->getUser();
+        $organiteur = $sortie->getOrganisateur();
+        if ($user != $organiteur) {
+            return $this->redirectToRoute('accueil');
+        }
+
         $sortie->setInfosSortie('');
         $form = $this->createForm(SortieModifyType::class, $sortie);
         $form->handleRequest($request);
