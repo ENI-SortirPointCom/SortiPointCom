@@ -61,7 +61,7 @@ class SortieController extends AbstractController
         $user = $this->getUser();
         $organiteur = $sortie->getOrganisateur();
         if ($user != $organiteur) {
-            $this->createAccessDeniedException();
+            throw $this->createAccessDeniedException();
         }
 
         $sortie->setInfosSortie('');
